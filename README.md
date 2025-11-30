@@ -41,3 +41,16 @@
 ## 许可证
 
 APatch Ultra 遵循 GNU General Public License v3 [GPL-3](http://www.gnu.org/copyleft/gpl.html) 许可证开源。
+
+## 原始项目社区
+
+以下为原始APatch项目的官方社区和交流渠道：
+
+### 更新信息
+
+- Telegram 频道: [@APatchUpdates](https://t.me/APatchChannel)
+
+### 讨论交流
+
+- Telegram 群组: [@APatchDiscussions(EN/CN)](https://t.me/Apatch_discuss)
+- Telegram 群组: [中文](https://t.me/APatch_CN_Group)

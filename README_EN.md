@@ -41,3 +41,16 @@ This project is based on the following open source projects:
 ## License
 
 APatch Ultra is licensed under the GNU General Public License v3 [GPL-3](http://www.gnu.org/copyleft/gpl.html).
+
+## Original Project Community
+
+The following are the official community and communication channels for the original APatch project:
+
+### Updates
+
+- Telegram Channel: [@APatchUpdates](https://t.me/APatchChannel)
+
+### Discussions
+
+- Telegram Group: [@APatchDiscussions(EN/CN)](https://t.me/Apatch_discuss)
+- Telegram Group: [中文](https://t.me/APatch_CN_Group)
