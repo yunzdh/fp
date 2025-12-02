@@ -509,6 +509,46 @@ fun SettingScreen() {
             
             // Select background image (only show when custom background is enabled)
             if (isCustomBackgroundEnabled) {
+                // Opacity Slider
+                var opacity by remember { mutableStateOf(BackgroundConfig.customBackgroundOpacity) }
+                ListItem(
+                    headlineContent = { Text(stringResource(id = R.string.settings_custom_background_opacity)) },
+                    supportingContent = {
+                        androidx.compose.material3.Slider(
+                            value = opacity,
+                            onValueChange = {
+                                opacity = it
+                                BackgroundConfig.setCustomBackgroundOpacityValue(it)
+                                refreshTheme.value = true
+                            },
+                            onValueChangeFinished = {
+                                BackgroundConfig.save(context)
+                            },
+                            valueRange = 0f..1f
+                        )
+                    }
+                )
+
+                // Dim Slider
+                var dim by remember { mutableStateOf(BackgroundConfig.customBackgroundDim) }
+                ListItem(
+                    headlineContent = { Text(stringResource(id = R.string.settings_custom_background_dim)) },
+                    supportingContent = {
+                        androidx.compose.material3.Slider(
+                            value = dim,
+                            onValueChange = {
+                                dim = it
+                                BackgroundConfig.setCustomBackgroundDimValue(it)
+                                refreshTheme.value = true
+                            },
+                            onValueChangeFinished = {
+                                BackgroundConfig.save(context)
+                            },
+                            valueRange = 0f..1f
+                        )
+                    }
+                )
+
                 val pickImageLauncher = rememberLauncherForActivityResult(
                     ActivityResultContracts.GetContent()
                 ) { uri: Uri? ->

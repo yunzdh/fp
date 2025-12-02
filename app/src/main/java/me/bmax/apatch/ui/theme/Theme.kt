@@ -182,28 +182,33 @@ fun APatchTheme(
     }
     
     val colorScheme = baseColorScheme.copy(
-        background = if (BackgroundConfig.isCustomBackgroundEnabled) Color.Transparent else baseColorScheme.background,
+        background = if (BackgroundConfig.isCustomBackgroundEnabled) Color.Black.copy(alpha = BackgroundConfig.customBackgroundDim) else baseColorScheme.background,
         surface = if (BackgroundConfig.isCustomBackgroundEnabled) {
             // 在自定义背景模式下，为surface添加半透明效果
-            baseColorScheme.surface.copy(alpha = 0.75f)
+            baseColorScheme.surface.copy(alpha = BackgroundConfig.customBackgroundOpacity)
         } else {
             baseColorScheme.surface
         },
         // 同样处理primary和secondary颜色，确保KStatusCard也有半透明效果
         primary = if (BackgroundConfig.isCustomBackgroundEnabled) {
-            baseColorScheme.primary.copy(alpha = 0.75f)
+            baseColorScheme.primary.copy(alpha = BackgroundConfig.customBackgroundOpacity)
         } else {
             baseColorScheme.primary
         },
         secondary = if (BackgroundConfig.isCustomBackgroundEnabled) {
-            baseColorScheme.secondary.copy(alpha = 0.75f)
+            baseColorScheme.secondary.copy(alpha = BackgroundConfig.customBackgroundOpacity)
         } else {
             baseColorScheme.secondary
         },
         secondaryContainer = if (BackgroundConfig.isCustomBackgroundEnabled) {
-            baseColorScheme.secondaryContainer.copy(alpha = 0.75f)
+            baseColorScheme.secondaryContainer.copy(alpha = BackgroundConfig.customBackgroundOpacity)
         } else {
             baseColorScheme.secondaryContainer
+        },
+        surfaceContainer = if (BackgroundConfig.isCustomBackgroundEnabled) {
+            baseColorScheme.surfaceContainer.copy(alpha = BackgroundConfig.customBackgroundOpacity)
+        } else {
+            baseColorScheme.surfaceContainer
         }
     )
 

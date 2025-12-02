@@ -18,10 +18,16 @@ object BackgroundConfig {
         private set
     var isCustomBackgroundEnabled: Boolean by mutableStateOf(false)
         private set
+    var customBackgroundOpacity: Float by mutableStateOf(0.5f)
+        private set
+    var customBackgroundDim: Float by mutableStateOf(0.2f)
+        private set
     
     private const val PREFS_NAME = "background_settings"
     private const val KEY_CUSTOM_BACKGROUND_URI = "custom_background_uri"
     private const val KEY_CUSTOM_BACKGROUND_ENABLED = "custom_background_enabled"
+    private const val KEY_CUSTOM_BACKGROUND_OPACITY = "custom_background_opacity"
+    private const val KEY_CUSTOM_BACKGROUND_DIM = "custom_background_dim"
     private const val TAG = "BackgroundConfig"
     
     /**
@@ -38,6 +44,20 @@ object BackgroundConfig {
     fun setCustomBackgroundEnabledState(enabled: Boolean) {
         isCustomBackgroundEnabled = enabled
     }
+
+    /**
+     * 设置自定义背景不透明度
+     */
+    fun setCustomBackgroundOpacityValue(opacity: Float) {
+        customBackgroundOpacity = opacity
+    }
+
+    /**
+     * 设置自定义背景暗度
+     */
+    fun setCustomBackgroundDimValue(dim: Float) {
+        customBackgroundDim = dim
+    }
     
     /**
      * 保存配置到SharedPreferences
@@ -47,6 +67,8 @@ object BackgroundConfig {
         prefs.edit().apply {
             putString(KEY_CUSTOM_BACKGROUND_URI, customBackgroundUri)
             putBoolean(KEY_CUSTOM_BACKGROUND_ENABLED, isCustomBackgroundEnabled)
+            putFloat(KEY_CUSTOM_BACKGROUND_OPACITY, customBackgroundOpacity)
+            putFloat(KEY_CUSTOM_BACKGROUND_DIM, customBackgroundDim)
             apply()
         }
     }
@@ -58,11 +80,15 @@ object BackgroundConfig {
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         val uri = prefs.getString(KEY_CUSTOM_BACKGROUND_URI, null)
         val enabled = prefs.getBoolean(KEY_CUSTOM_BACKGROUND_ENABLED, false)
+        val opacity = prefs.getFloat(KEY_CUSTOM_BACKGROUND_OPACITY, 0.5f)
+        val dim = prefs.getFloat(KEY_CUSTOM_BACKGROUND_DIM, 0.2f)
         
-        Log.d(TAG, "加载背景配置: URI=$uri, enabled=$enabled")
+        Log.d(TAG, "加载背景配置: URI=$uri, enabled=$enabled, opacity=$opacity, dim=$dim")
         
         customBackgroundUri = uri
         isCustomBackgroundEnabled = enabled
+        customBackgroundOpacity = opacity
+        customBackgroundDim = dim
     }
     
     /**
@@ -71,6 +97,8 @@ object BackgroundConfig {
     fun reset() {
         customBackgroundUri = null
         isCustomBackgroundEnabled = false
+        customBackgroundOpacity = 0.5f
+        customBackgroundDim = 0.2f
     }
 }
 

@@ -282,6 +282,8 @@
     <string name="settings_app_title">App Title</string>
     <string name="settings_custom_background">Custom Background</string>
     <string name="settings_custom_background_enabled">Custom Background Enabled</string>
+    <string name="settings_custom_background_opacity">Card opacity</string>
+    <string name="settings_custom_background_dim">Background dim</string>
     <string name="settings_select_background_image">Select Background Image</string>
     <string name="settings_custom_background_summary">Set a custom background image</string>
     <string name="settings_custom_background_saved">Background saved successfully</string>
