@@ -105,13 +105,18 @@ fun KpmAutoLoadConfigScreen(navigator: DestinationsNavigator) {
         contract = ActivityResultContracts.GetContent()
     ) { uri ->
         uri?.let {
-            val path = getPathFromUri(context, it)
-            if (path.endsWith(".kpm", ignoreCase = true) && path !in kpmPathsList) {
-                kpmPathsList = kpmPathsList + path
+            // 导入KPM文件到内部存储
+            val importedPath = KpmAutoLoadManager.importKpm(context, it)
+            
+            if (importedPath != null && importedPath.endsWith(".kpm", ignoreCase = true) && importedPath !in kpmPathsList) {
+                kpmPathsList = kpmPathsList + importedPath
                 // 更新JSON字符串
                 updateJsonString(kpmPathsList, isEnabled) { newJson ->
                     jsonString = newJson
                 }
+                showToast(context, context.getString(R.string.kpm_autoload_save_success))
+            } else if (importedPath == null) {
+                showToast(context, context.getString(R.string.kpm_autoload_file_not_found))
             }
         }
     }

@@ -30,6 +30,7 @@ object KpmAutoLoadManager {
     private const val PREFS_NAME = "kpm_autoload_prefs"
     private const val KEY_FIRST_TIME_SHOWN = "first_time_shown"
     private const val KEY_FIRST_TIME_KPM_PAGE_SHOWN = "first_time_kpm_page_shown"
+    private const val KPMS_DIR_NAME = "autoload_kpms"
     
     // 当前配置状态
     var isEnabled = mutableStateOf(false)
@@ -69,6 +70,85 @@ object KpmAutoLoadManager {
         prefs.edit().putBoolean(KEY_FIRST_TIME_KPM_PAGE_SHOWN, true).apply()
     }
     
+    /**
+     * 导入KPM文件到内部存储
+     */
+    fun importKpm(context: Context, uri: android.net.Uri): String? {
+        return try {
+            val kpmDir = File(context.filesDir, KPMS_DIR_NAME)
+            if (!kpmDir.exists()) {
+                kpmDir.mkdirs()
+            }
+
+            val fileName = getFileName(context, uri) ?: "unknown_${System.currentTimeMillis()}.kpm"
+            val destFile = File(kpmDir, fileName)
+            
+            // 如果文件已存在，先删除
+            if (destFile.exists()) {
+                destFile.delete()
+            }
+
+            context.contentResolver.openInputStream(uri)?.use { input ->
+                destFile.outputStream().use { output ->
+                    input.copyTo(output)
+                }
+            }
+            
+            Log.d(TAG, "KPM导入成功: ${destFile.absolutePath}")
+            destFile.absolutePath
+        } catch (e: Exception) {
+            Log.e(TAG, "KPM导入失败: ${e.message}", e)
+            null
+        }
+    }
+    
+    /**
+     * 获取文件名
+     */
+    private fun getFileName(context: Context, uri: android.net.Uri): String? {
+        var result: String? = null
+        if (uri.scheme == "content") {
+            val cursor = context.contentResolver.query(uri, null, null, null, null)
+            try {
+                if (cursor != null && cursor.moveToFirst()) {
+                    val index = cursor.getColumnIndex(android.provider.OpenableColumns.DISPLAY_NAME)
+                    if (index >= 0) {
+                        result = cursor.getString(index)
+                    }
+                }
+            } finally {
+                cursor?.close()
+            }
+        }
+        if (result == null) {
+            result = uri.path
+            val cut = result?.lastIndexOf('/')
+            if (cut != null && cut != -1) {
+                result = result?.substring(cut + 1)
+            }
+        }
+        return result
+    }
+
+    /**
+     * 删除不再使用的KPM文件
+     */
+    fun cleanupUnusedKpms(context: Context, currentPaths: List<String>) {
+        try {
+            val kpmDir = File(context.filesDir, KPMS_DIR_NAME)
+            if (kpmDir.exists() && kpmDir.isDirectory) {
+                kpmDir.listFiles()?.forEach { file ->
+                    if (file.absolutePath !in currentPaths) {
+                        Log.d(TAG, "删除未使用的KPM文件: ${file.absolutePath}")
+                        file.delete()
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "清理KPM文件失败: ${e.message}", e)
+        }
+    }
+
     /**
      * 加载配置文件
      */
@@ -113,6 +193,10 @@ object KpmAutoLoadManager {
             isEnabled.value = config.enabled
             kpmPaths.value = config.kpmPaths
             Log.d(TAG, "配置保存成功: enabled=${config.enabled}, kpmPaths=${config.kpmPaths}")
+            
+            // 清理未使用的KPM文件
+            cleanupUnusedKpms(context, config.kpmPaths)
+            
             true
         } catch (e: IOException) {
             Log.e(TAG, "保存配置失败: ${e.message}", e)
