@@ -608,7 +608,6 @@ fun SettingScreen() {
                             onValueChange = {
                                 opacity = it
                                 BackgroundConfig.setCustomBackgroundOpacityValue(it)
-                                refreshTheme.value = true
                             },
                             onValueChangeFinished = {
                                 BackgroundConfig.save(context)
@@ -632,7 +631,6 @@ fun SettingScreen() {
                             onValueChange = {
                                 dim = it
                                 BackgroundConfig.setCustomBackgroundDimValue(it)
-                                refreshTheme.value = true
                             },
                             onValueChangeFinished = {
                                 BackgroundConfig.save(context)
