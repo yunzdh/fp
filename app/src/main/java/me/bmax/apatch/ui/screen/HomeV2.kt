@@ -216,7 +216,7 @@ private fun StatusCardBig(
         onClick = onClick,
         modifier = modifier,
         colors = CardDefaults.cardColors(containerColor = containerColor),
-        elevation = CardDefaults.cardElevation(defaultElevation = if (BackgroundConfig.isCustomBackgroundEnabled) 0.dp else 2.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = if (BackgroundConfig.isCustomBackgroundEnabled || useCustomGridBg) 0.dp else 2.dp)
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
             if (useCustomGridBg) {
