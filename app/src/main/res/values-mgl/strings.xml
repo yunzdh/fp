@@ -433,4 +433,14 @@
     <string name="theme_import_action">唤醒</string>
     <string name="theme_import_confirm">确定要唤醒此魔法主题吗？</string>
     <string name="theme_info">魔法主题情报</string>
+
+    <!-- Grid Working Card Background -->
+    <string name="settings_grid_working_card_background">神域背景绘卷</string>
+    <string name="settings_grid_working_card_background_summary">为神域展开卡片赋予独特的魔法绘卷</string>
+    <string name="settings_grid_working_card_background_selected">绘卷已展开</string>
+    <string name="settings_clear_grid_working_card_background">收起绘卷</string>
+    <string name="settings_clear_grid_working_card_background_confirm">确定要收起这张魔法绘卷吗？</string>
+    <string name="settings_grid_working_card_background_saved">绘卷铭刻成功</string>
+    <string name="settings_grid_working_card_background_error">绘卷铭刻失败</string>
+    <string name="settings_grid_working_card_background_cleared">绘卷已收起</string>
 </resources>

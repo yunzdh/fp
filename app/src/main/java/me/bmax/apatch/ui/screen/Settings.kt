@@ -602,6 +602,150 @@ fun SettingScreen() {
                 )
             }, leadingContent = { Icon(Icons.Filled.Dashboard, null) })
 
+            // Grid Layout Working Card Background (Only for Grid Layout)
+            if (prefs.getString("home_layout_style", "default") == "kernelsu") {
+                
+                SwitchItem(
+                    icon = Icons.Filled.Image,
+                    title = stringResource(id = R.string.settings_grid_working_card_background),
+                    summary = if (BackgroundConfig.isGridWorkingCardBackgroundEnabled) {
+                        if (!BackgroundConfig.gridWorkingCardBackgroundUri.isNullOrEmpty()) {
+                            stringResource(id = R.string.settings_grid_working_card_background_enabled)
+                        } else {
+                            stringResource(id = R.string.settings_select_background_image)
+                        }
+                    } else {
+                        stringResource(id = R.string.settings_grid_working_card_background_summary)
+                    },
+                    checked = BackgroundConfig.isGridWorkingCardBackgroundEnabled,
+                    onCheckedChange = {
+                        BackgroundConfig.setGridWorkingCardBackgroundEnabledState(it)
+                        BackgroundConfig.save(context)
+                    }
+                )
+
+                if (BackgroundConfig.isGridWorkingCardBackgroundEnabled) {
+                    // Opacity Slider
+                    ListItem(
+                        headlineContent = { Text(stringResource(id = R.string.settings_custom_background_opacity)) },
+                        supportingContent = {
+                            androidx.compose.material3.Slider(
+                                value = BackgroundConfig.gridWorkingCardBackgroundOpacity,
+                                onValueChange = {
+                                    BackgroundConfig.setGridWorkingCardBackgroundOpacityValue(it)
+                                },
+                                onValueChangeFinished = {
+                                    BackgroundConfig.save(context)
+                                },
+                                valueRange = 0f..1f,
+                                colors = androidx.compose.material3.SliderDefaults.colors(
+                                    thumbColor = MaterialTheme.colorScheme.primary.copy(alpha = 1f),
+                                    activeTrackColor = MaterialTheme.colorScheme.primary.copy(alpha = 1f)
+                                )
+                            )
+                        }
+                    )
+
+                    // Dim Slider
+                    ListItem(
+                        headlineContent = { Text(stringResource(id = R.string.settings_custom_background_dim)) },
+                        supportingContent = {
+                            androidx.compose.material3.Slider(
+                                value = BackgroundConfig.gridWorkingCardBackgroundDim,
+                                onValueChange = {
+                                    BackgroundConfig.setGridWorkingCardBackgroundDimValue(it)
+                                },
+                                onValueChangeFinished = {
+                                    BackgroundConfig.save(context)
+                                },
+                                valueRange = 0f..1f,
+                                colors = androidx.compose.material3.SliderDefaults.colors(
+                                    thumbColor = MaterialTheme.colorScheme.primary.copy(alpha = 1f),
+                                    activeTrackColor = MaterialTheme.colorScheme.primary.copy(alpha = 1f)
+                                )
+                            )
+                        }
+                    )
+
+                    val pickGridImageLauncher = rememberLauncherForActivityResult(
+                        ActivityResultContracts.GetContent()
+                    ) { uri: Uri? ->
+                        uri?.let {
+                            scope.launch {
+                                loadingDialog.show()
+                                val success = BackgroundManager.saveAndApplyGridWorkingCardBackground(context, it)
+                                loadingDialog.hide()
+                                if (success) {
+                                    snackBarHost.showSnackbar(
+                                        message = context.getString(R.string.settings_grid_working_card_background_saved)
+                                    )
+                                } else {
+                                    snackBarHost.showSnackbar(
+                                        message = context.getString(R.string.settings_grid_working_card_background_error)
+                                    )
+                                }
+                            }
+                        }
+                    }
+
+                    ListItem(
+                        headlineContent = { 
+                            Text(text = stringResource(id = R.string.settings_select_background_image))
+                        },
+                        supportingContent = {
+                            if (!BackgroundConfig.gridWorkingCardBackgroundUri.isNullOrEmpty()) {
+                                Text(
+                                    text = stringResource(id = R.string.settings_grid_working_card_background_selected),
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    color = MaterialTheme.colorScheme.outline
+                                )
+                            }
+                        },
+                        leadingContent = { Icon(painterResource(id = R.drawable.ic_custom_background), null) },
+                        modifier = Modifier.clickable {
+                            if (PermissionUtils.hasExternalStoragePermission(context)) {
+                                try {
+                                    pickGridImageLauncher.launch("image/*")
+                                } catch (e: ActivityNotFoundException) {
+                                    Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
+                                }
+                            } else {
+                                Toast.makeText(
+                                    context, 
+                                    "请先授予存储权限才能选择背景图片", 
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+                    )
+
+                    val clearGridBackgroundDialog = rememberConfirmDialog(
+                        onConfirm = {
+                            scope.launch {
+                                loadingDialog.show()
+                                BackgroundManager.clearGridWorkingCardBackground(context)
+                                loadingDialog.hide()
+                                snackBarHost.showSnackbar(
+                                    message = context.getString(R.string.settings_grid_working_card_background_cleared)
+                                )
+                            }
+                        }
+                    )
+                    
+                    ListItem(
+                        headlineContent = { Text(text = stringResource(id = R.string.settings_clear_grid_working_card_background)) },
+                        leadingContent = { Icon(painterResource(id = R.drawable.ic_clear_background), null) },
+                        modifier = Modifier.clickable {
+                            clearGridBackgroundDialog.showConfirm(
+                                title = context.getString(R.string.settings_clear_grid_working_card_background),
+                                content = context.getString(R.string.settings_clear_grid_working_card_background_confirm),
+                                markdown = false
+                            )
+                        }
+                    )
+                }
+            }
+
             // Custom Background Settings
             
             // Custom background toggle

@@ -3,6 +3,8 @@ package me.bmax.apatch.ui.screen
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Warning
@@ -14,9 +16,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import coil.compose.rememberAsyncImagePainter
 import com.ramcosta.composedestinations.generated.destinations.InstallModeSelectScreenDestination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import me.bmax.apatch.APApplication
@@ -25,6 +29,7 @@ import me.bmax.apatch.ui.theme.BackgroundConfig
 import me.bmax.apatch.util.Version
 import androidx.compose.foundation.isSystemInDarkTheme
 
+import androidx.compose.ui.draw.alpha
 import me.bmax.apatch.apApp
 import me.bmax.apatch.util.Version.getManagerVersion
 
@@ -174,7 +179,9 @@ private fun StatusCardBig(
     }
     
     // Colors
-    val (containerColor, contentColor) = if (BackgroundConfig.isCustomBackgroundEnabled) {
+    val useCustomGridBg = BackgroundConfig.isGridWorkingCardBackgroundEnabled && !BackgroundConfig.gridWorkingCardBackgroundUri.isNullOrEmpty()
+    
+    val (baseContainerColor, baseContentColor) = if (BackgroundConfig.isCustomBackgroundEnabled) {
          val opacity = BackgroundConfig.customBackgroundOpacity
          val container = MaterialTheme.colorScheme.primary.copy(alpha = opacity)
          val content = if (opacity <= 0.1f) {
@@ -193,6 +200,11 @@ private fun StatusCardBig(
              MaterialTheme.colorScheme.secondaryContainer to MaterialTheme.colorScheme.onSecondaryContainer
         }
     }
+    
+    val containerColor = if (useCustomGridBg) Color.Transparent else baseContainerColor
+    // If using custom grid bg, force content color to white (or based on some logic), or keep base logic?
+    // Let's assume white text for image background with dimming
+    val contentColor = if (useCustomGridBg) Color.White else baseContentColor
 
     Card(
         onClick = onClick,
@@ -200,20 +212,42 @@ private fun StatusCardBig(
         colors = CardDefaults.cardColors(containerColor = containerColor),
         elevation = CardDefaults.cardElevation(defaultElevation = if (BackgroundConfig.isCustomBackgroundEnabled) 0.dp else 2.dp)
     ) {
-        Box(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-            Column(modifier = Modifier.align(Alignment.BottomStart)) {
-                Text(
-                    text = when(kpState) {
-                        APApplication.State.KERNELPATCH_INSTALLED -> stringResource(R.string.home_working)
-                        APApplication.State.KERNELPATCH_NEED_UPDATE -> stringResource(R.string.home_kp_need_update)
-                        APApplication.State.KERNELPATCH_NEED_REBOOT -> stringResource(R.string.home_ap_cando_reboot)
-                        APApplication.State.UNKNOWN_STATE -> stringResource(R.string.home_install_unknown)
-                        else -> stringResource(R.string.home_not_installed)
-                    },
-                    style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.Bold,
-                    color = contentColor
+        Box(modifier = Modifier.fillMaxSize()) {
+            if (useCustomGridBg) {
+                Image(
+                    painter = rememberAsyncImagePainter(
+                        model = BackgroundConfig.gridWorkingCardBackgroundUri,
+                        contentScale = ContentScale.Crop
+                    ),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .alpha(BackgroundConfig.gridWorkingCardBackgroundOpacity)
                 )
+                // Add a dim layer for readability
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(Color.Black.copy(alpha = BackgroundConfig.gridWorkingCardBackgroundDim))
+                )
+            }
+            
+            Box(modifier = Modifier.fillMaxSize().padding(16.dp)) {
+                Column(modifier = Modifier.align(Alignment.BottomStart)) {
+                    Text(
+                        text = when(kpState) {
+                            APApplication.State.KERNELPATCH_INSTALLED -> stringResource(R.string.home_working)
+                            APApplication.State.KERNELPATCH_NEED_UPDATE -> stringResource(R.string.home_kp_need_update)
+                            APApplication.State.KERNELPATCH_NEED_REBOOT -> stringResource(R.string.home_ap_cando_reboot)
+                            APApplication.State.UNKNOWN_STATE -> stringResource(R.string.home_install_unknown)
+                            else -> stringResource(R.string.home_not_installed)
+                        },
+                        style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.Bold,
+                        color = contentColor
+                    )
+                } // End of Column
                 if (isWorking) {
                     Spacer(Modifier.height(4.dp))
                     Text(
@@ -239,7 +273,7 @@ private fun StatusCardBig(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun SmallInfoCard(
+fun SmallInfoCard(
     modifier: Modifier = Modifier,
     title: String,
     value: String,
