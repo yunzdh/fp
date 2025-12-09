@@ -107,24 +107,13 @@ object BackgroundConfig {
  */
 object BackgroundManager {
     private const val TAG = "BackgroundManager"
-    private const val APATCH_EXTERNAL_DIR = "Apatch"
-    
+    private const val BACKGROUND_FILENAME = "background.jpg"
+
     /**
-     * 获取外部存储目录
+     * 获取背景文件
      */
-    private fun getExternalStorageDir(context: Context): File? {
-        return try {
-            // 使用应用专用的外部存储目录
-            val externalDir = File(context.getExternalFilesDir(null), APATCH_EXTERNAL_DIR)
-            if (!externalDir.exists()) {
-                externalDir.mkdirs()
-            }
-            Log.d(TAG, "外部存储目录: ${externalDir.absolutePath}")
-            externalDir
-        } catch (e: Exception) {
-            Log.e(TAG, "获取外部存储目录失败: ${e.message}", e)
-            null
-        }
+    private fun getBackgroundFile(context: Context): File {
+        return File(context.filesDir, BACKGROUND_FILENAME)
     }
     
     /**
@@ -133,15 +122,15 @@ object BackgroundManager {
     suspend fun saveAndApplyCustomBackground(context: Context, uri: Uri): Boolean {
         return try {
             withContext(Dispatchers.IO) {
-                val externalUri = copyImageToExternalStorage(context, uri)
-                if (externalUri != null) {
-                    Log.d(TAG, "图片复制成功，外部URI: $externalUri")
-                    BackgroundConfig.updateCustomBackgroundUri(externalUri.toString())
+                val savedUri = saveImageToInternalStorage(context, uri)
+                if (savedUri != null) {
+                    Log.d(TAG, "图片保存成功，URI: $savedUri")
+                    BackgroundConfig.updateCustomBackgroundUri(savedUri.toString())
                     BackgroundConfig.save(context)
                     Log.d(TAG, "背景配置保存成功，URI: ${BackgroundConfig.customBackgroundUri}, 启用状态: ${BackgroundConfig.isCustomBackgroundEnabled}")
                     true
                 } else {
-                    Log.e(TAG, "图片复制失败")
+                    Log.e(TAG, "图片保存失败")
                     false
                 }
             }
@@ -156,16 +145,10 @@ object BackgroundManager {
      */
     fun clearCustomBackground(context: Context) {
         try {
-            // 删除外部存储的背景文件
-            BackgroundConfig.customBackgroundUri?.let { uriString ->
-                val uri = Uri.parse(uriString)
-                val path = uri.path
-                if (path != null) {
-                    val file = File(path)
-                    if (file.exists()) {
-                        file.delete()
-                    }
-                }
+            // 删除背景文件
+            val file = getBackgroundFile(context)
+            if (file.exists()) {
+                file.delete()
             }
             
             // 重置配置
@@ -184,15 +167,13 @@ object BackgroundManager {
     }
     
     /**
-     * 复制图片到外部存储
+     * 保存图片到内部存储
      */
-    private suspend fun copyImageToExternalStorage(context: Context, uri: Uri): Uri? {
+    private suspend fun saveImageToInternalStorage(context: Context, uri: Uri): Uri? {
         return withContext(Dispatchers.IO) {
             try {
-                val apatchDir = getExternalStorageDir(context) ?: return@withContext null
                 val inputStream = context.contentResolver.openInputStream(uri) ?: return@withContext null
-                val fileName = "custom_background_${System.currentTimeMillis()}.jpg"
-                val file = File(apatchDir, fileName)
+                val file = getBackgroundFile(context)
 
                 FileOutputStream(file).use { outputStream ->
                     val buffer = ByteArray(8 * 1024)
@@ -204,12 +185,15 @@ object BackgroundManager {
                 }
                 inputStream.close()
 
-                // 直接返回文件URI
-                val fileUri = Uri.fromFile(file)
-                Log.d(TAG, "图片复制成功，文件URI: $fileUri")
+                // 返回带时间戳的URI，确保Compose重组
+                val fileUri = Uri.fromFile(file).buildUpon()
+                    .appendQueryParameter("t", System.currentTimeMillis().toString())
+                    .build()
+                    
+                Log.d(TAG, "图片保存成功，文件URI: $fileUri")
                 fileUri
             } catch (e: Exception) {
-                Log.e(TAG, "复制图片到外部存储失败: ${e.message}", e)
+                Log.e(TAG, "保存图片到内部存储失败: ${e.message}", e)
                 null
             }
         }
