@@ -123,7 +123,6 @@ object FontConfig {
                 file.delete()
             }
         }
-        isCustomFontEnabled = false
         customFontFilename = null
         save(context)
     }

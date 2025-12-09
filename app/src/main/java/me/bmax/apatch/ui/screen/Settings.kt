@@ -866,27 +866,19 @@ fun SettingScreen() {
                 icon = Icons.Filled.TextFields,
                 title = stringResource(id = R.string.settings_custom_font),
                 summary = if (FontConfig.isCustomFontEnabled) {
-                    stringResource(id = R.string.settings_font_selected)
+                    if (FontConfig.customFontFilename != null) {
+                        stringResource(id = R.string.settings_font_selected)
+                    } else {
+                        stringResource(id = R.string.settings_custom_font_enabled)
+                    }
                 } else {
                     stringResource(id = R.string.settings_custom_font_summary)
                 },
                 checked = FontConfig.isCustomFontEnabled
             ) {
-                if (!it) {
-                    FontConfig.clearFont(context)
-                    refreshTheme.value = true
-                    scope.launch {
-                        snackBarHost.showSnackbar(
-                            message = context.getString(R.string.settings_font_cleared)
-                        )
-                    }
-                } else {
-                    try {
-                        pickFontLauncher.launch("*/*")
-                    } catch (e: ActivityNotFoundException) {
-                        Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
-                    }
-                }
+                FontConfig.setCustomFontEnabledState(it)
+                FontConfig.save(context)
+                refreshTheme.value = true
             }
 
             if (FontConfig.isCustomFontEnabled) {
@@ -910,6 +902,31 @@ fun SettingScreen() {
                         }
                     }
                 )
+
+                if (FontConfig.customFontFilename != null) {
+                    val clearFontDialog = rememberConfirmDialog(
+                        onConfirm = {
+                            FontConfig.clearFont(context)
+                            refreshTheme.value = true
+                            scope.launch {
+                                snackBarHost.showSnackbar(
+                                    message = context.getString(R.string.settings_font_cleared)
+                                )
+                            }
+                        }
+                    )
+
+                    ListItem(
+                        headlineContent = { Text(text = stringResource(id = R.string.settings_clear_font)) },
+                        leadingContent = { Icon(Icons.Filled.RemoveFromQueue, null) },
+                        modifier = Modifier.clickable {
+                            clearFontDialog.showConfirm(
+                                title = context.getString(R.string.settings_clear_font),
+                                content = context.getString(R.string.settings_clear_font_confirm)
+                            )
+                        }
+                    )
+                }
             }
 
             // su path
