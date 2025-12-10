@@ -489,6 +489,70 @@ fun SettingScreen() {
                 hideApatchCard = it
             }
 
+            // Hide su path
+            var hideSuPath by rememberSaveable {
+                mutableStateOf(
+                    prefs.getBoolean("hide_su_path", false)
+                )
+            }
+            SwitchItem(
+                icon = Icons.Filled.Visibility,
+                title = stringResource(id = R.string.home_hide_su_path),
+                summary = stringResource(id = R.string.home_hide_su_path_summary),
+                checked = hideSuPath
+            ) {
+                prefs.edit { putBoolean("hide_su_path", it) }
+                hideSuPath = it
+            }
+
+            // Hide kernel patch version
+            var hideKpatchVersion by rememberSaveable {
+                mutableStateOf(
+                    prefs.getBoolean("hide_kpatch_version", false)
+                )
+            }
+            SwitchItem(
+                icon = Icons.Filled.Visibility,
+                title = stringResource(id = R.string.home_hide_kpatch_version),
+                summary = stringResource(id = R.string.home_hide_kpatch_version_summary),
+                checked = hideKpatchVersion
+            ) {
+                prefs.edit { putBoolean("hide_kpatch_version", it) }
+                hideKpatchVersion = it
+            }
+
+            // Hide fingerprint
+            var hideFingerprint by rememberSaveable {
+                mutableStateOf(
+                    prefs.getBoolean("hide_fingerprint", false)
+                )
+            }
+            SwitchItem(
+                icon = Icons.Filled.Visibility,
+                title = stringResource(id = R.string.home_hide_fingerprint),
+                summary = stringResource(id = R.string.home_hide_fingerprint_summary),
+                checked = hideFingerprint
+            ) {
+                prefs.edit { putBoolean("hide_fingerprint", it) }
+                hideFingerprint = it
+            }
+
+            // Simple Kernel Version Mode
+            var simpleKernelVersionMode by rememberSaveable {
+                mutableStateOf(
+                    prefs.getBoolean("simple_kernel_version_mode", false)
+                )
+            }
+            SwitchItem(
+                icon = Icons.Filled.Visibility,
+                title = stringResource(id = R.string.settings_simple_kernel_version_mode),
+                summary = stringResource(id = R.string.settings_simple_kernel_version_mode_summary),
+                checked = simpleKernelVersionMode
+            ) {
+                prefs.edit { putBoolean("simple_kernel_version_mode", it) }
+                simpleKernelVersionMode = it
+            }
+
             // Night Mode Settings
             val isNightModeSupported = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
             if (isNightModeSupported) {
