@@ -62,7 +62,10 @@ object ThemeManager {
         val musicVolume: Float = 1.0f,
         val isAutoPlayEnabled: Boolean = false,
         val isLoopingEnabled: Boolean = false,
-        val musicFilename: String? = null
+        val musicFilename: String? = null,
+        // Video Background
+        val isVideoBackgroundEnabled: Boolean = false,
+        val videoVolume: Float = 0f
     )
 
     data class ThemeMetadata(
@@ -101,7 +104,9 @@ object ThemeManager {
                     musicVolume = MusicConfig.volume,
                     isAutoPlayEnabled = MusicConfig.isAutoPlayEnabled,
                     isLoopingEnabled = MusicConfig.isLoopingEnabled,
-                    musicFilename = MusicConfig.musicFilename
+                    musicFilename = MusicConfig.musicFilename,
+                    isVideoBackgroundEnabled = BackgroundConfig.isVideoBackgroundEnabled,
+                    videoVolume = BackgroundConfig.videoVolume
                 )
 
                 // 2. Write Config JSON
@@ -131,6 +136,10 @@ object ThemeManager {
                     put("isAutoPlayEnabled", config.isAutoPlayEnabled)
                     put("isLoopingEnabled", config.isLoopingEnabled)
                     put("musicFilename", config.musicFilename)
+
+                    // Video Background
+                    put("isVideoBackgroundEnabled", config.isVideoBackgroundEnabled)
+                    put("videoVolume", config.videoVolume.toDouble())
 
                     // Add metadata
                     put("meta_name", metadata.name)
@@ -199,7 +208,7 @@ object ThemeManager {
                     }
                 }
 
-                // 5. Copy Music if enabled
+                // 6. Copy Music if enabled
                 if (config.isMusicEnabled) {
                     val musicName = config.musicFilename
                     if (musicName != null) {
@@ -210,7 +219,19 @@ object ThemeManager {
                     }
                 }
 
-                // 6. Encrypt and Zip to Uri
+                // 7. Copy Video Background if enabled
+                if (config.isVideoBackgroundEnabled) {
+                    val extensions = listOf(".mp4", ".webm", ".mkv")
+                    for (ext in extensions) {
+                        val videoFile = File(context.filesDir, "video_background$ext")
+                        if (videoFile.exists()) {
+                            videoFile.copyTo(File(cacheDir, "video_background$ext"))
+                            break
+                        }
+                    }
+                }
+
+                // 8. Encrypt and Zip to Uri
                 context.contentResolver.openOutputStream(uri)?.use { os ->
                     // Init Cipher
                     val cipher = Cipher.getInstance("AES/CBC/PKCS5Padding")
@@ -334,6 +355,10 @@ object ThemeManager {
                 val isGridWorkingCardBackgroundEnabled = json.optBoolean("isGridWorkingCardBackgroundEnabled", false)
                 val gridWorkingCardBackgroundOpacity = json.optDouble("gridWorkingCardBackgroundOpacity", 1.0).toFloat()
                 val gridWorkingCardBackgroundDim = json.optDouble("gridWorkingCardBackgroundDim", 0.3).toFloat()
+
+                // Video Background
+                val isVideoBackgroundEnabled = json.optBoolean("isVideoBackgroundEnabled", false)
+                val videoVolume = json.optDouble("videoVolume", 0.0).toFloat()
 
                 // Multi-Background Mode
                 val isMultiBackgroundEnabled = json.optBoolean("isMultiBackgroundEnabled", false)
@@ -460,6 +485,30 @@ object ThemeManager {
                     // We might also want to clear the files or at least reset the URIs in config?
                     // BackgroundConfig.setMultiBackgroundEnabledState(false) is already called above.
                     // We don't necessarily delete the files, just like other background settings don't strictly delete files when disabled.
+                }
+
+                // Apply Video Background
+                BackgroundConfig.setVideoBackgroundEnabledState(isVideoBackgroundEnabled)
+                BackgroundConfig.setVideoVolumeValue(videoVolume)
+
+                if (isVideoBackgroundEnabled) {
+                    val extensions = listOf(".mp4", ".webm", ".mkv")
+                    for (ext in extensions) {
+                        val videoFile = File(cacheDir, "video_background$ext")
+                        if (videoFile.exists()) {
+                            // Clear old files
+                            BackgroundManager.clearVideoBackground(context)
+                            
+                            val destFile = File(context.filesDir, "video_background$ext")
+                            videoFile.copyTo(destFile, overwrite = true)
+                            
+                            val fileUri = Uri.fromFile(destFile).toString()
+                            BackgroundConfig.updateVideoBackgroundUri(fileUri)
+                            // Restore enabled state as clearVideoBackground resets it
+                            BackgroundConfig.setVideoBackgroundEnabledState(true)
+                            break
+                        }
+                    }
                 }
 
                 BackgroundConfig.save(context)

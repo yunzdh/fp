@@ -28,6 +28,23 @@ class OnlineKPMViewModel : ViewModel() {
     var modules by mutableStateOf<List<OnlineKPM>>(emptyList())
         private set
 
+    private var allModules = listOf<OnlineKPM>()
+
+    var searchQuery by mutableStateOf("")
+        private set
+
+    fun onSearchQueryChange(query: String) {
+        searchQuery = query
+        if (query.isBlank()) {
+            modules = allModules
+        } else {
+            modules = allModules.filter {
+                it.name.contains(query, ignoreCase = true) ||
+                it.description.contains(query, ignoreCase = true)
+            }
+        }
+    }
+
     var isRefreshing by mutableStateOf(false)
         private set
 
@@ -54,7 +71,8 @@ class OnlineKPMViewModel : ViewModel() {
                             )
                         )
                     }
-                    modules = list
+                    allModules = list
+                    onSearchQueryChange(searchQuery)
                 } else {
                     Log.e(TAG, "Failed to fetch modules: ${response.code}")
                 }

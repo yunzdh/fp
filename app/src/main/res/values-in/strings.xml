@@ -487,4 +487,21 @@
     <string name="settings_music_playback_control">Kontrol Pemutaran</string>
     <string name="settings_music_looping">Putar berulang</string>
     <string name="settings_music_looping_summary">Ulangi lagu saat ini</string>
+    <!-- Theme Store Filter -->
+    <string name="theme_store_filter_title">Filter Tema</string>
+    <string name="theme_store_filter_author">Penulis</string>
+    <string name="theme_store_filter_author_hint">Masukkan nama penulis</string>
+    <string name="theme_store_filter_source">Sumber</string>
+    <string name="theme_store_filter_source_all">Semua</string>
+    <string name="theme_store_filter_type">Tipe Perangkat</string>
+    <string name="theme_store_filter_apply">Terapkan</string>
+    <string name="theme_store_filter_reset">Reset</string>
+
+    <!-- Video Background Settings -->
+    <string name="settings_video_background">Latar Belakang Video</string>
+    <string name="settings_video_background_summary">Gunakan video sebagai latar belakang</string>
+    <string name="settings_select_video">Pilih Video</string>
+    <string name="settings_video_selected">Video Dipilih</string>
+    <string name="settings_video_background_enabled">Latar Belakang Video Diaktifkan</string>
+    <string name="settings_video_volume">Volume Video</string>
 </resources>

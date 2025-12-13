@@ -503,4 +503,21 @@
     <string name="settings_music_playback_control">颂歌控法阵</string>
     <string name="settings_music_looping">无限吟唱</string>
     <string name="settings_music_looping_summary">无限循环的魔法咏唱</string>
+    <!-- Theme Store Filter -->
+    <string name="theme_store_filter_title">筛选魔法主题</string>
+    <string name="theme_store_filter_author">魔法师</string>
+    <string name="theme_store_filter_author_hint">输入魔法师名称</string>
+    <string name="theme_store_filter_source">魔法来源</string>
+    <string name="theme_store_filter_source_all">全部</string>
+    <string name="theme_store_filter_type">魔法设备类型</string>
+    <string name="theme_store_filter_apply">施法</string>
+    <string name="theme_store_filter_reset">重置</string>
+
+    <!-- Video Background Settings -->
+    <string name="settings_video_background">魔法影像背景</string>
+    <string name="settings_video_background_summary">使用魔法影像作为背景</string>
+    <string name="settings_select_video">选择魔法影像</string>
+    <string name="settings_video_selected">已选择魔法影像</string>
+    <string name="settings_video_background_enabled">魔法影像背景已激活</string>
+    <string name="settings_video_volume">魔法影像音量</string>
 </resources>

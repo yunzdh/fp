@@ -29,6 +29,23 @@ class OnlineModuleViewModel : ViewModel() {
     var modules by mutableStateOf<List<OnlineModule>>(emptyList())
         private set
 
+    private var allModules = listOf<OnlineModule>()
+
+    var searchQuery by mutableStateOf("")
+        private set
+
+    fun onSearchQueryChange(query: String) {
+        searchQuery = query
+        if (query.isBlank()) {
+            modules = allModules
+        } else {
+            modules = allModules.filter {
+                it.name.contains(query, ignoreCase = true) ||
+                it.description.contains(query, ignoreCase = true)
+            }
+        }
+    }
+
     var isRefreshing by mutableStateOf(false)
         private set
     
@@ -64,6 +81,8 @@ class OnlineModuleViewModel : ViewModel() {
                         )
                     }
                     modules = list
+                    allModules = list
+                    onSearchQueryChange(searchQuery)
                 } else {
                     Log.e(TAG, "Failed to fetch modules: ${response.code}")
                 }

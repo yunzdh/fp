@@ -337,6 +337,14 @@
     <string name="launcher_icon_classic">FolkPatch Anime</string>
     <string name="launcher_icon_apatch">APatch</string>
     <string name="launcher_icon_kernelsu">KernelSU</string>
+
+    <!-- Video Background Settings -->
+    <string name="settings_video_background">Video Background</string>
+    <string name="settings_video_background_summary">Use a video as background</string>
+    <string name="settings_select_video">Select Video</string>
+    <string name="settings_video_selected">Video Selected</string>
+    <string name="settings_video_background_enabled">Video Background Enabled</string>
+    <string name="settings_video_volume">Video Volume</string>
     <string name="launcher_icon_kernelsu_next">KernelSU Next</string>
     <string name="launcher_icon_kitsune">Kitsune Mask</string>
     <string name="launcher_icon_magisk">Magisk</string>
@@ -509,4 +517,14 @@
     <string name="settings_music_cleared">Music cleared</string>
     <string name="settings_category_multimedia">Multimedia</string>
     <string name="settings_music_playback_control">Playback Control</string>
+
+    <!-- Theme Store Filter -->
+    <string name="theme_store_filter_title">Filter Themes</string>
+    <string name="theme_store_filter_author">Author</string>
+    <string name="theme_store_filter_author_hint">Enter author name</string>
+    <string name="theme_store_filter_source">Source</string>
+    <string name="theme_store_filter_source_all">All</string>
+    <string name="theme_store_filter_type">Device Type</string>
+    <string name="theme_store_filter_apply">Apply</string>
+    <string name="theme_store_filter_reset">Reset</string>
 </resources>
