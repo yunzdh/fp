@@ -46,6 +46,12 @@ object BackgroundConfig {// State
         private set
     var gridWorkingCardBackgroundDim: Float by mutableStateOf(0.3f)
         private set
+    var isGridDualOpacityEnabled: Boolean by mutableStateOf(false)
+        private set
+    var gridWorkingCardBackgroundDayOpacity: Float by mutableStateOf(1.0f)
+        private set
+    var gridWorkingCardBackgroundNightOpacity: Float by mutableStateOf(1.0f)
+        private set
     var isGridWorkingCardCheckHidden: Boolean by mutableStateOf(false)
         private set
     var isGridWorkingCardTextHidden: Boolean by mutableStateOf(false)
@@ -88,6 +94,9 @@ object BackgroundConfig {// State
     private const val KEY_GRID_WORKING_CARD_BACKGROUND_ENABLED = "grid_working_card_background_enabled"
     private const val KEY_GRID_WORKING_CARD_BACKGROUND_OPACITY = "grid_working_card_background_opacity"
     private const val KEY_GRID_WORKING_CARD_BACKGROUND_DIM = "grid_working_card_background_dim"
+    private const val KEY_GRID_WORKING_CARD_DUAL_OPACITY_ENABLED = "grid_working_card_dual_opacity_enabled"
+    private const val KEY_GRID_WORKING_CARD_BACKGROUND_DAY_OPACITY = "grid_working_card_background_day_opacity"
+    private const val KEY_GRID_WORKING_CARD_BACKGROUND_NIGHT_OPACITY = "grid_working_card_background_night_opacity"
     private const val KEY_GRID_WORKING_CARD_CHECK_HIDDEN = "grid_working_card_check_hidden"
     private const val KEY_GRID_WORKING_CARD_TEXT_HIDDEN = "grid_working_card_text_hidden"
     private const val KEY_GRID_WORKING_CARD_MODE_HIDDEN = "grid_working_card_mode_hidden"
@@ -160,6 +169,26 @@ object BackgroundConfig {// State
      */
     fun setGridWorkingCardBackgroundOpacityValue(opacity: Float) {
         gridWorkingCardBackgroundOpacity = opacity
+    }
+
+    fun setGridDualOpacityEnabledState(enabled: Boolean) {
+        isGridDualOpacityEnabled = enabled
+    }
+
+    fun setGridWorkingCardBackgroundDayOpacityValue(opacity: Float) {
+        gridWorkingCardBackgroundDayOpacity = opacity
+    }
+
+    fun setGridWorkingCardBackgroundNightOpacityValue(opacity: Float) {
+        gridWorkingCardBackgroundNightOpacity = opacity
+    }
+
+    fun getEffectiveGridBackgroundOpacity(isDarkTheme: Boolean): Float {
+        return if (isGridDualOpacityEnabled) {
+            if (isDarkTheme) gridWorkingCardBackgroundNightOpacity else gridWorkingCardBackgroundDayOpacity
+        } else {
+            gridWorkingCardBackgroundOpacity
+        }
     }
 
     /**
@@ -278,6 +307,9 @@ object BackgroundConfig {// State
             putBoolean(KEY_GRID_WORKING_CARD_BACKGROUND_ENABLED, isGridWorkingCardBackgroundEnabled)
             putFloat(KEY_GRID_WORKING_CARD_BACKGROUND_OPACITY, gridWorkingCardBackgroundOpacity)
             putFloat(KEY_GRID_WORKING_CARD_BACKGROUND_DIM, gridWorkingCardBackgroundDim)
+            putBoolean(KEY_GRID_WORKING_CARD_DUAL_OPACITY_ENABLED, isGridDualOpacityEnabled)
+            putFloat(KEY_GRID_WORKING_CARD_BACKGROUND_DAY_OPACITY, gridWorkingCardBackgroundDayOpacity)
+            putFloat(KEY_GRID_WORKING_CARD_BACKGROUND_NIGHT_OPACITY, gridWorkingCardBackgroundNightOpacity)
             putBoolean(KEY_GRID_WORKING_CARD_CHECK_HIDDEN, isGridWorkingCardCheckHidden)
             putBoolean(KEY_GRID_WORKING_CARD_TEXT_HIDDEN, isGridWorkingCardTextHidden)
             putBoolean(KEY_GRID_WORKING_CARD_MODE_HIDDEN, isGridWorkingCardModeHidden)
@@ -315,6 +347,9 @@ object BackgroundConfig {// State
         val gridEnabled = prefs.getBoolean(KEY_GRID_WORKING_CARD_BACKGROUND_ENABLED, false)
         val gridOpacity = prefs.getFloat(KEY_GRID_WORKING_CARD_BACKGROUND_OPACITY, 1.0f)
         val gridDim = prefs.getFloat(KEY_GRID_WORKING_CARD_BACKGROUND_DIM, 0.3f)
+        val gridDualOpacityEnabled = prefs.getBoolean(KEY_GRID_WORKING_CARD_DUAL_OPACITY_ENABLED, false)
+        val gridDayOpacity = prefs.getFloat(KEY_GRID_WORKING_CARD_BACKGROUND_DAY_OPACITY, gridOpacity)
+        val gridNightOpacity = prefs.getFloat(KEY_GRID_WORKING_CARD_BACKGROUND_NIGHT_OPACITY, gridOpacity)
         val gridCheckHidden = prefs.getBoolean(KEY_GRID_WORKING_CARD_CHECK_HIDDEN, false)
         val gridTextHidden = prefs.getBoolean(KEY_GRID_WORKING_CARD_TEXT_HIDDEN, false)
         val gridModeHidden = prefs.getBoolean(KEY_GRID_WORKING_CARD_MODE_HIDDEN, false)
@@ -346,6 +381,9 @@ object BackgroundConfig {// State
         isGridWorkingCardBackgroundEnabled = gridEnabled
         gridWorkingCardBackgroundOpacity = gridOpacity
         gridWorkingCardBackgroundDim = gridDim
+        isGridDualOpacityEnabled = gridDualOpacityEnabled
+        gridWorkingCardBackgroundDayOpacity = gridDayOpacity
+        gridWorkingCardBackgroundNightOpacity = gridNightOpacity
         isGridWorkingCardCheckHidden = gridCheckHidden
         isGridWorkingCardTextHidden = gridTextHidden
         isGridWorkingCardModeHidden = gridModeHidden
@@ -381,6 +419,9 @@ object BackgroundConfig {// State
         isGridWorkingCardBackgroundEnabled = false
         gridWorkingCardBackgroundOpacity = 1.0f
         gridWorkingCardBackgroundDim = 0.3f
+        isGridDualOpacityEnabled = false
+        gridWorkingCardBackgroundDayOpacity = 1.0f
+        gridWorkingCardBackgroundNightOpacity = 1.0f
         isGridWorkingCardCheckHidden = false
         isGridWorkingCardTextHidden = false
         isGridWorkingCardModeHidden = false
@@ -582,6 +623,9 @@ object BackgroundManager {
             BackgroundConfig.setGridWorkingCardBackgroundEnabledState(false)
             BackgroundConfig.setGridWorkingCardBackgroundOpacityValue(1.0f)
             BackgroundConfig.setGridWorkingCardBackgroundDimValue(0.3f)
+            BackgroundConfig.setGridDualOpacityEnabledState(false)
+            BackgroundConfig.setGridWorkingCardBackgroundDayOpacityValue(1.0f)
+            BackgroundConfig.setGridWorkingCardBackgroundNightOpacityValue(1.0f)
             BackgroundConfig.save(context)
         } catch (e: Exception) {
             Log.e(TAG, "清除Grid卡片自定义背景失败: ${e.message}", e)

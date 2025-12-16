@@ -338,6 +338,9 @@
     <string name="settings_custom_background_dual_dim">Aktifkan redup siang/malam ganda</string>
     <string name="settings_custom_background_day_dim">Redup latar belakang mode siang</string>
     <string name="settings_custom_background_night_dim">Redup latar belakang mode malam</string>
+    <string name="settings_grid_working_card_dual_opacity">Aktifkan transparansi siang/malam ganda</string>
+    <string name="settings_grid_working_card_day_opacity">Transparansi kartu mode siang</string>
+    <string name="settings_grid_working_card_night_opacity">Transparansi kartu mode malam</string>
     <string name="kpm_autoload_save">Simpan konfigurasi</string>
     <string name="kpm_autoload_save_confirm">Simpan konfigurasi muat otomatis?</string>
     <string name="kpm_autoload_save_success">Konfigurasi berhasil disimpan</string>

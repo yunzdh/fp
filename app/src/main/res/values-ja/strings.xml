@@ -339,6 +339,9 @@
     <string name="settings_custom_background_dual_dim">昼夜デュアル背景暗度を有効にする</string>
     <string name="settings_custom_background_day_dim">昼間モードの背景暗度</string>
     <string name="settings_custom_background_night_dim">夜間モードの背景暗度</string>
+    <string name="settings_grid_working_card_dual_opacity">昼間/夜間デュアル透明度を有効にする</string>
+    <string name="settings_grid_working_card_day_opacity">昼間モードカード透明度</string>
+    <string name="settings_grid_working_card_night_opacity">夜間モードカード透明度</string>
     <string name="apm_bulk_install_remove">削除</string>
     <string name="apm_first_use_title">システムモジュールへようこそ</string>
     <string name="apm_first_use_text">システムモジュールへようこそ。ここではMagiskエコシステムと互換性のあるモジュールを使用しています。将来的にはLuaモジュールのサポートが追加される可能性があります。右下のボタンをクリックしてモジュールをインストールできます。また、上部のインストーラを使用してモジュールを一括インストールすることもできます。すべてのモジュールをワンクリックでバックアップする機能も提供されていますが、この方法がすべてのモジュールに適しているとは限らないので、ご自身でバックアップを作成してください。</string>

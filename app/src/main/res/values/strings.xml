@@ -470,6 +470,9 @@
     <string name="settings_grid_working_card_background_enabled">Custom card background enabled</string>
     <string name="settings_grid_working_card_background_summary">Custom background image for the working card</string>
     <string name="settings_grid_working_card_background_selected">Background selected</string>
+    <string name="settings_grid_working_card_dual_opacity">Enable dual day/night opacity</string>
+    <string name="settings_grid_working_card_day_opacity">Day mode card opacity</string>
+    <string name="settings_grid_working_card_night_opacity">Night mode card opacity</string>
     <string name="settings_clear_grid_working_card_background">Clear Card Background</string>
     <string name="settings_clear_grid_working_card_background_confirm">Are you sure you want to clear the card background image?</string>
     <string name="settings_grid_working_card_background_saved">Card background saved successfully</string>

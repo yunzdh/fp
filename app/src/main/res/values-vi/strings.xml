@@ -342,6 +342,9 @@
     <string name="settings_custom_background_dual_dim">Bật chế độ độ tối ngày/đêm kép</string>
     <string name="settings_custom_background_day_dim">Độ tối nền ban ngày</string>
     <string name="settings_custom_background_night_dim">Độ tối nền ban đêm</string>
+    <string name="settings_grid_working_card_dual_opacity">Bật chế độ độ trong suốt ngày/đêm kép</string>
+    <string name="settings_grid_working_card_day_opacity">Độ trong suốt thẻ ban ngày</string>
+    <string name="settings_grid_working_card_night_opacity">Độ trong suốt thẻ ban đêm</string>
     <string name="launcher_icon_superroot">SuperRoot</string>
     
     <string name="su_exclude_all_title">Loại trừ hàng loạt</string>

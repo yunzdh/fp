@@ -231,6 +231,16 @@ private fun StatusCardBig(
                     }
                     .build()
 
+                val prefs = APApplication.sharedPreferences
+                val darkThemeFollowSys = prefs.getBoolean("night_mode_follow_sys", true)
+                val nightModeEnabled = prefs.getBoolean("night_mode_enabled", false)
+                val isDarkTheme = if (darkThemeFollowSys) {
+                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && context.resources.configuration.uiMode and
+                        android.content.res.Configuration.UI_MODE_NIGHT_MASK == android.content.res.Configuration.UI_MODE_NIGHT_YES
+                } else {
+                    nightModeEnabled
+                }
+
                 Image(
                     painter = rememberAsyncImagePainter(
                         model = ImageRequest.Builder(context)
@@ -244,7 +254,7 @@ private fun StatusCardBig(
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .fillMaxSize()
-                        .alpha(BackgroundConfig.gridWorkingCardBackgroundOpacity)
+                        .alpha(BackgroundConfig.getEffectiveGridBackgroundOpacity(isDarkTheme))
                 )
                 // Add a dim layer for readability
                 Box(

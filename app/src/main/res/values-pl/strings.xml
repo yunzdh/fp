@@ -338,6 +338,9 @@
     <string name="settings_custom_background_dual_dim">Włącz podwójne przyciemnienie dzienne/nocne</string>
     <string name="settings_custom_background_day_dim">Przyciemnienie tła w trybie dziennym</string>
     <string name="settings_custom_background_night_dim">Przyciemnienie tła w trybie nocnym</string>
+    <string name="settings_grid_working_card_dual_opacity">Włącz podwójną przezroczystość dzienną/nocną</string>
+    <string name="settings_grid_working_card_day_opacity">Przezroczystość karty w trybie dziennym</string>
+    <string name="settings_grid_working_card_night_opacity">Przezroczystość karty w trybie nocnym</string>
     <string name="kpm_autoload_json_config">Konfiguracja JSON</string>
     <string name="kpm_autoload_json_label">Konfiguracja JSON</string>
     <string name="kpm_autoload_json_placeholder">{\n  "enabled": true,\n  "kpmPaths": [\n    "/sciezka/do/modulu1.kpm",\n    "/sciezka/do/modulu2.kpm"\n  ]\n}</string>

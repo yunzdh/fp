@@ -338,6 +338,9 @@
     <string name="settings_custom_background_dual_dim">Включить двойную дневную/ночную затемненность</string>
     <string name="settings_custom_background_day_dim">Затемненность фона в дневном режиме</string>
     <string name="settings_custom_background_night_dim">Затемненность фона в ночном режиме</string>
+    <string name="settings_grid_working_card_dual_opacity">Включить двойную дневную/ночную прозрачность</string>
+    <string name="settings_grid_working_card_day_opacity">Прозрачность карточки в дневном режиме</string>
+    <string name="settings_grid_working_card_night_opacity">Прозрачность карточки в ночном режиме</string>
     
     <!-- KPM AutoLoad Strings -->
     <string name="kpm_autoload_title">Автозагрузка KPM</string>

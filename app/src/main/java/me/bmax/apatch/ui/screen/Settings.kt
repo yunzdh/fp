@@ -743,6 +743,12 @@ fun SettingScreen(navigator: DestinationsNavigator) {
             
             val gridOpacityTitle = stringResource(id = R.string.settings_custom_background_opacity)
             val showGridOpacity = isKernelSuStyle && BackgroundConfig.isGridWorkingCardBackgroundEnabled && (matchAppearance || shouldShow(gridOpacityTitle))
+            val gridDualOpacityTitle = stringResource(id = R.string.settings_grid_working_card_dual_opacity)
+            val gridDayOpacityTitle = stringResource(id = R.string.settings_grid_working_card_day_opacity)
+            val gridNightOpacityTitle = stringResource(id = R.string.settings_grid_working_card_night_opacity)
+            val showGridDualOpacitySwitch = isKernelSuStyle && BackgroundConfig.isGridWorkingCardBackgroundEnabled && (matchAppearance || shouldShow(gridDualOpacityTitle))
+            val showGridDayOpacity = isKernelSuStyle && BackgroundConfig.isGridWorkingCardBackgroundEnabled && BackgroundConfig.isGridDualOpacityEnabled && (matchAppearance || shouldShow(gridDayOpacityTitle))
+            val showGridNightOpacity = isKernelSuStyle && BackgroundConfig.isGridWorkingCardBackgroundEnabled && BackgroundConfig.isGridDualOpacityEnabled && (matchAppearance || shouldShow(gridNightOpacityTitle))
             
             val gridDimTitle = stringResource(id = R.string.settings_custom_background_dim)
             val showGridDim = isKernelSuStyle && BackgroundConfig.isGridWorkingCardBackgroundEnabled && (matchAppearance || shouldShow(gridDimTitle))
@@ -937,9 +943,21 @@ fun SettingScreen(navigator: DestinationsNavigator) {
                     }
 
                     if (BackgroundConfig.isGridWorkingCardBackgroundEnabled && isKernelSuStyle) {
+                        if (showGridDualOpacitySwitch) {
+                            SwitchItem(
+                                icon = Icons.Filled.DarkMode,
+                                title = gridDualOpacityTitle,
+                                summary = null,
+                                checked = BackgroundConfig.isGridDualOpacityEnabled,
+                                onCheckedChange = {
+                                    BackgroundConfig.setGridDualOpacityEnabledState(it)
+                                    BackgroundConfig.save(context)
+                                }
+                            )
+                        }
                         // Opacity
-                         if (showGridOpacity) {
-                             ListItem(
+                        if (!BackgroundConfig.isGridDualOpacityEnabled && showGridOpacity) {
+                            ListItem(
                                 colors = ListItemDefaults.colors(containerColor = Color.Transparent),
                                 headlineContent = { Text(gridOpacityTitle) },
                                 supportingContent = {
@@ -955,6 +973,43 @@ fun SettingScreen(navigator: DestinationsNavigator) {
                                     )
                                 }
                             )
+                        } else {
+                            if (BackgroundConfig.isGridDualOpacityEnabled && showGridDayOpacity) {
+                                ListItem(
+                                    colors = ListItemDefaults.colors(containerColor = Color.Transparent),
+                                    headlineContent = { Text(gridDayOpacityTitle) },
+                                    supportingContent = {
+                                        androidx.compose.material3.Slider(
+                                            value = BackgroundConfig.gridWorkingCardBackgroundDayOpacity,
+                                            onValueChange = { BackgroundConfig.setGridWorkingCardBackgroundDayOpacityValue(it) },
+                                            onValueChangeFinished = { BackgroundConfig.save(context) },
+                                            valueRange = 0f..1f,
+                                            colors = androidx.compose.material3.SliderDefaults.colors(
+                                                thumbColor = MaterialTheme.colorScheme.primary.copy(alpha = 1f),
+                                                activeTrackColor = MaterialTheme.colorScheme.primary.copy(alpha = 1f)
+                                            )
+                                        )
+                                    }
+                                )
+                            }
+                            if (BackgroundConfig.isGridDualOpacityEnabled && showGridNightOpacity) {
+                                ListItem(
+                                    colors = ListItemDefaults.colors(containerColor = Color.Transparent),
+                                    headlineContent = { Text(gridNightOpacityTitle) },
+                                    supportingContent = {
+                                        androidx.compose.material3.Slider(
+                                            value = BackgroundConfig.gridWorkingCardBackgroundNightOpacity,
+                                            onValueChange = { BackgroundConfig.setGridWorkingCardBackgroundNightOpacityValue(it) },
+                                            onValueChangeFinished = { BackgroundConfig.save(context) },
+                                            valueRange = 0f..1f,
+                                            colors = androidx.compose.material3.SliderDefaults.colors(
+                                                thumbColor = MaterialTheme.colorScheme.primary.copy(alpha = 1f),
+                                                activeTrackColor = MaterialTheme.colorScheme.primary.copy(alpha = 1f)
+                                            )
+                                        )
+                                    }
+                                )
+                            }
                         }
                         // Dim
                         if (showGridDim) {

@@ -57,6 +57,9 @@ object ThemeManager {
         // Grid Working Card Background
         val isGridWorkingCardBackgroundEnabled: Boolean = false,
         val gridWorkingCardBackgroundOpacity: Float = 1.0f,
+        val isGridDualOpacityEnabled: Boolean = false,
+        val gridWorkingCardBackgroundDayOpacity: Float = 1.0f,
+        val gridWorkingCardBackgroundNightOpacity: Float = 1.0f,
         val gridWorkingCardBackgroundDim: Float = 0.3f,
         val isGridWorkingCardCheckHidden: Boolean = false,
         val isGridWorkingCardTextHidden: Boolean = false,
@@ -108,6 +111,9 @@ object ThemeManager {
                     appLanguage = AppCompatDelegate.getApplicationLocales().toLanguageTags(),
                     isGridWorkingCardBackgroundEnabled = BackgroundConfig.isGridWorkingCardBackgroundEnabled,
                     gridWorkingCardBackgroundOpacity = BackgroundConfig.gridWorkingCardBackgroundOpacity,
+                    isGridDualOpacityEnabled = BackgroundConfig.isGridDualOpacityEnabled,
+                    gridWorkingCardBackgroundDayOpacity = BackgroundConfig.gridWorkingCardBackgroundDayOpacity,
+                    gridWorkingCardBackgroundNightOpacity = BackgroundConfig.gridWorkingCardBackgroundNightOpacity,
                     gridWorkingCardBackgroundDim = BackgroundConfig.gridWorkingCardBackgroundDim,
                     isGridWorkingCardCheckHidden = BackgroundConfig.isGridWorkingCardCheckHidden,
                     isGridWorkingCardTextHidden = BackgroundConfig.isGridWorkingCardTextHidden,
@@ -142,6 +148,9 @@ object ThemeManager {
                     // Grid Working Card Background
                     put("isGridWorkingCardBackgroundEnabled", config.isGridWorkingCardBackgroundEnabled)
                     put("gridWorkingCardBackgroundOpacity", config.gridWorkingCardBackgroundOpacity.toDouble())
+                    put("isGridDualOpacityEnabled", config.isGridDualOpacityEnabled)
+                    put("gridWorkingCardBackgroundDayOpacity", config.gridWorkingCardBackgroundDayOpacity.toDouble())
+                    put("gridWorkingCardBackgroundNightOpacity", config.gridWorkingCardBackgroundNightOpacity.toDouble())
                     put("gridWorkingCardBackgroundDim", config.gridWorkingCardBackgroundDim.toDouble())
                     put("isGridWorkingCardCheckHidden", config.isGridWorkingCardCheckHidden)
                     put("isGridWorkingCardTextHidden", config.isGridWorkingCardTextHidden)
@@ -378,6 +387,9 @@ object ThemeManager {
                 // Grid Working Card Background
                 val isGridWorkingCardBackgroundEnabled = json.optBoolean("isGridWorkingCardBackgroundEnabled", false)
                 val gridWorkingCardBackgroundOpacity = json.optDouble("gridWorkingCardBackgroundOpacity", 1.0).toFloat()
+                val isGridDualOpacityEnabled = json.optBoolean("isGridDualOpacityEnabled", false)
+                val gridWorkingCardBackgroundDayOpacity = json.optDouble("gridWorkingCardBackgroundDayOpacity", gridWorkingCardBackgroundOpacity.toDouble()).toFloat()
+                val gridWorkingCardBackgroundNightOpacity = json.optDouble("gridWorkingCardBackgroundNightOpacity", gridWorkingCardBackgroundOpacity.toDouble()).toFloat()
                 val gridWorkingCardBackgroundDim = json.optDouble("gridWorkingCardBackgroundDim", 0.3).toFloat()
                 val isGridWorkingCardCheckHidden = json.optBoolean("isGridWorkingCardCheckHidden", false)
                 val isGridWorkingCardTextHidden = json.optBoolean("isGridWorkingCardTextHidden", false)
@@ -440,6 +452,9 @@ object ThemeManager {
                 
                 // Apply Grid Working Card Background
                 BackgroundConfig.setGridWorkingCardBackgroundOpacityValue(gridWorkingCardBackgroundOpacity)
+                BackgroundConfig.setGridDualOpacityEnabledState(isGridDualOpacityEnabled)
+                BackgroundConfig.setGridWorkingCardBackgroundDayOpacityValue(gridWorkingCardBackgroundDayOpacity)
+                BackgroundConfig.setGridWorkingCardBackgroundNightOpacityValue(gridWorkingCardBackgroundNightOpacity)
                 BackgroundConfig.setGridWorkingCardBackgroundDimValue(gridWorkingCardBackgroundDim)
                 BackgroundConfig.setGridWorkingCardBackgroundEnabledState(isGridWorkingCardBackgroundEnabled)
                 BackgroundConfig.setGridWorkingCardCheckHiddenState(isGridWorkingCardCheckHidden)
