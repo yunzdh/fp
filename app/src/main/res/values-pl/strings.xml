@@ -213,7 +213,9 @@
     <string name="home_dialog_uninstall_title">Odinstaluj</string>
     
     <string name="home_dialog_uninstall_ap_only">Odinstaluj tylko poprawkę</string>
+    <string name="home_dialog_uninstall_ap_only_desc">Usuń tylko AndroidPatch, zachowując menedżer.</string>
     <string name="home_dialog_uninstall_all">Odinstaluj całkowicie</string>
+    <string name="home_dialog_uninstall_all_desc">Usuń AndroidPatch i rozpocznij pełny proces odinstalowywania.</string>
 
     <string name="kpm_control_dialog_title">Sterowanie KPM</string>
     <string name="kpm_control_dialog_content">Proszę wprowadzić parametry sterowania:</string>

@@ -223,6 +223,8 @@
     
     <string name="home_dialog_uninstall_ap_only">Uninstall patch only</string>
     <string name="home_dialog_uninstall_all">Uninstall fully</string>
+    <string name="home_dialog_uninstall_ap_only_desc">Remove AndroidPatch only and keep the manager.</string>
+    <string name="home_dialog_uninstall_all_desc">Remove AndroidPatch and start the full uninstall flow.</string>
 
     <string name="kpm_control_dialog_title">Control KPM</string>
     <string name="kpm_control_dialog_content">Please enter control parameters:</string>

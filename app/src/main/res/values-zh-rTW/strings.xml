@@ -206,8 +206,10 @@
     <string name="home_more_menu_about">關於</string>
 
     <string name="home_dialog_uninstall_title">解除安裝</string>
-    <string name="home_dialog_uninstall_ap_only">僅刪除 AndroidPatch</string>
+    <string name="home_dialog_uninstall_ap_only">僅刪除系統修補</string>
+    <string name="home_dialog_uninstall_ap_only_desc">僅移除系統修補，保留管理器。</string>
     <string name="home_dialog_uninstall_all">完全卸載</string>
+    <string name="home_dialog_uninstall_all_desc">移除系統修補並進入完整卸載流程。</string>
 
     <string name="kpm_control_dialog_title">控制 KP模組</string>
     <string name="kpm_control_dialog_content">輸入控制參數：</string>

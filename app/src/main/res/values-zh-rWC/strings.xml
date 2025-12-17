@@ -207,7 +207,9 @@
 
     <string name="home_dialog_uninstall_title">废去仙籍</string>
     <string name="home_dialog_uninstall_ap_only">唯废符箓</string>
+    <string name="home_dialog_uninstall_ap_only_desc">唯废系统符箓，留仙官</string>
     <string name="home_dialog_uninstall_all">尽废仙法</string>
+    <string name="home_dialog_uninstall_all_desc">废去系统符箓，始废仙流程</string>
 
     <string name="kpm_control_dialog_title">驭道核仙符</string>
     <string name="kpm_control_dialog_content">请输驭符之渡劫数参：</string>

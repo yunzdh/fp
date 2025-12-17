@@ -218,7 +218,9 @@
     <string name="home_dialog_uninstall_title">Удаление</string>
     
     <string name="home_dialog_uninstall_ap_only">Удалить только патч</string>
+    <string name="home_dialog_uninstall_ap_only_desc">Удалить только AndroidPatch, сохранив менеджер.</string>
     <string name="home_dialog_uninstall_all">Полностью удалить</string>
+    <string name="home_dialog_uninstall_all_desc">Удалить AndroidPatch и запустить процесс полного удаления.</string>
 
     <string name="kpm_control_dialog_title">Управление KPM</string>
     <string name="kpm_control_dialog_content">Пожалуйста, введите параметры управления:</string>

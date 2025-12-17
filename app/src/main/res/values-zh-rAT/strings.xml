@@ -208,8 +208,10 @@
 
     <string name="home_dialog_uninstall_title">解除祝福</string>
     
-    <string name="home_dialog_uninstall_ap_only">仅解除魔法祝福</string>
+    <string name="home_dialog_uninstall_ap_only">仅解除天使祝福</string>
+    <string name="home_dialog_uninstall_ap_only_desc">仅移除天使祝福，保留天使管理器</string>
     <string name="home_dialog_uninstall_all">完全解除祝福</string>
+    <string name="home_dialog_uninstall_all_desc">移除天使祝福并进入完整解除流程</string>
 
     <string name="kpm_control_dialog_title">引导灵魂晶石</string>
     <string name="kpm_control_dialog_content">请输入神谕密语：</string>

@@ -182,7 +182,9 @@
     <string name="home_more_menu_about">APatch について</string>
     <string name="home_dialog_uninstall_title">アンインストール</string>
     <string name="home_dialog_uninstall_ap_only">パッチをアンインストール</string>
+    <string name="home_dialog_uninstall_ap_only_desc">AndroidPatchのみを削除し、マネージャーを保持します。</string>
     <string name="home_dialog_uninstall_all">全てアンインストール</string>
+    <string name="home_dialog_uninstall_all_desc">AndroidPatchを削除し、完全なアンインストールフローを開始します。</string>
     <string name="kpm_control_dialog_title">KPModule の管理</string>
     <string name="kpm_control_dialog_content">制御パラメータを入力してください：</string>
     <string name="kpm_control_paramters">パラメータ</string>

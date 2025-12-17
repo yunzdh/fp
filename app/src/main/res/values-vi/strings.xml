@@ -210,7 +210,9 @@
     <string name="home_dialog_uninstall_title">Gỡ cài đặt</string>
     
     <string name="home_dialog_uninstall_ap_only">Chỉ gỡ bản vá</string>
+    <string name="home_dialog_uninstall_ap_only_desc">Chỉ gỡ AndroidPatch và giữ lại trình quản lý.</string>
     <string name="home_dialog_uninstall_all">Gỡ hoàn toàn</string>
+    <string name="home_dialog_uninstall_all_desc">Gỡ AndroidPatch và bắt đầu quy trình gỡ cài đặt hoàn toàn.</string>
 
     <string name="kpm_control_dialog_title">Kiểm soát KPM</string>
     <string name="kpm_control_dialog_content">Vui lòng nhập tham số kiểm soát:</string>

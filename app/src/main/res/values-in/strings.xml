@@ -214,7 +214,9 @@
     <string name="home_dialog_uninstall_title">Hapus Instalasi</string>
 
     <string name="home_dialog_uninstall_ap_only">Hapus Patch Saja</string>
+    <string name="home_dialog_uninstall_ap_only_desc">Hapus hanya AndroidPatch dan simpan manajernya.</string>
     <string name="home_dialog_uninstall_all">Hapus Instalasi Penuh</string>
+    <string name="home_dialog_uninstall_all_desc">Hapus AndroidPatch dan mulai proses uninstall penuh.</string>
 
     <string name="kpm_control_dialog_title">Kontrol KPM</string>
     <string name="kpm_control_dialog_content">Silakan masukkan parameter kontrol:</string>

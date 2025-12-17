@@ -210,7 +210,9 @@
     <string name="home_dialog_uninstall_title">解除契约</string>
     
     <string name="home_dialog_uninstall_ap_only">仅解除魔法契约</string>
+    <string name="home_dialog_uninstall_ap_only_desc">仅移除魔法契约，保留部分魔力</string>
     <string name="home_dialog_uninstall_all">完全解除契约</string>
+    <string name="home_dialog_uninstall_all_desc">移除魔法契约并进入完整解除流程</string>
 
     <string name="kpm_control_dialog_title">操控心之结晶</string>
     <string name="kpm_control_dialog_content">请输入操控咒语：</string>
