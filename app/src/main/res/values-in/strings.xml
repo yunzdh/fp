@@ -191,6 +191,8 @@
     <string name="settings_apm_install_confirm_summary">Tampilkan dialog konfirmasi sebelum menginstal modul</string>
     <string name="settings_show_disable_all_modules">Tampilkan tombol "Nonaktifkan semua modul"</string>
     <string name="settings_show_disable_all_modules_summary">Tampilkan tombol di halaman modul untuk menonaktifkan semua modul secara bersamaan</string>
+    <string name="settings_show_more_module_info">Tampilkan detail modul</string>
+    <string name="settings_show_more_module_info_summary">Tampilkan ID dan ukuran modul dalam daftar modul</string>
     <string name="apm_install_confirm_title">Instal modul</string>
     <string name="apm_install_confirm_content">Apakah Anda yakin ingin tetap menginstal %s?</string>
     <string name="apm_disable_all_title">Nonaktifkan semua modul</string>
@@ -217,6 +219,11 @@
     <string name="home_dialog_uninstall_ap_only_desc">Hapus hanya AndroidPatch dan simpan manajernya.</string>
     <string name="home_dialog_uninstall_all">Hapus Instalasi Penuh</string>
     <string name="home_dialog_uninstall_all_desc">Hapus AndroidPatch dan mulai proses uninstall penuh.</string>
+    
+    <!-- Install Mode Select -->
+    <string name="kp_install_methods">KernelPatch Tambal/Pemasangan</string>
+    <string name="restore_boot_methods">Pilih boot untuk dipulihkan ke partisi boot</string>
+    <string name="restore_select_file">Pilih file boot partisi yang akan dipulihkan</string>
 
     <string name="kpm_control_dialog_title">Kontrol KPM</string>
     <string name="kpm_control_dialog_content">Silakan masukkan parameter kontrol:</string>

@@ -189,6 +189,8 @@
     <string name="settings_apm_install_confirm_summary">Pokaż okno dialogowe potwierdzenia przed instalacją modułów</string>
     <string name="settings_show_disable_all_modules">Pokaż przycisk \'Wyłącz wszystkie moduły\'</string>
     <string name="settings_show_disable_all_modules_summary">Wyświetl przycisk na stronie modułów, aby wyłączyć wszystkie moduły naraz</string>
+    <string name="settings_show_more_module_info">Pokaż szczegóły modułu</string>
+    <string name="settings_show_more_module_info_summary">Pokaż ID i rozmiar modułu na liście modułów</string>
     <string name="apm_install_confirm_title">Instalacja modułu</string>
     <string name="apm_install_confirm_content">Czy na pewno chcesz zainstalować %s?</string>
 
@@ -216,6 +218,11 @@
     <string name="home_dialog_uninstall_ap_only_desc">Usuń tylko AndroidPatch, zachowując menedżer.</string>
     <string name="home_dialog_uninstall_all">Odinstaluj całkowicie</string>
     <string name="home_dialog_uninstall_all_desc">Usuń AndroidPatch i rozpocznij pełny proces odinstalowywania.</string>
+    
+    <!-- Install Mode Select -->
+    <string name="kp_install_methods">KernelPatch Łatanie/Instalowanie</string>
+    <string name="restore_boot_methods">Wybierz rozruch do przywrócenia do partycji rozruchowej</string>
+    <string name="restore_select_file">Wybierz plik rozruchowy partycji do przywrócenia</string>
 
     <string name="kpm_control_dialog_title">Sterowanie KPM</string>
     <string name="kpm_control_dialog_content">Proszę wprowadzić parametry sterowania:</string>

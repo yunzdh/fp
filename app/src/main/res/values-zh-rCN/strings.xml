@@ -79,6 +79,7 @@
     <string name="patch_mode_bootimg_patch">模式：修补</string>
     <string name="patch_mode_patch_and_install">模式：修补并安装</string>
     <string name="patch_mode_install_to_next_slot">模式：安装到未激活槽位 (OTA 后)</string>
+    <string name="patch_mode_restore">模式：恢复</string>
     <string name="patch_mode_uninstall_patch">模式：卸载 KPatch</string>
     <string name="patch_select_bootimg_btn">选择镜像</string>
     <string name="patch_embed_kpm_btn">嵌入 KPM</string>
@@ -189,6 +190,8 @@
     <string name="enable_web_debugging_summary">可用于调试 WebUI。请仅在需要时启用。</string>
     <string name="settings_apm_install_confirm">安装模块确认</string>
     <string name="settings_apm_install_confirm_summary">安装模块前显示确认对话框</string>
+    <string name="settings_show_more_module_info">显示模块详细信息</string>
+    <string name="settings_show_more_module_info_summary">在模块列表中显示模块 ID 和大小</string>
     <string name="settings_apm_stay_on_page">留在操作页面</string>
     <string name="settings_apm_stay_on_page_summary">系统模块执行完操作后不自动返回</string>
     <string name="settings_show_disable_all_modules">显示"禁用全部模块"按钮</string>
@@ -204,6 +207,7 @@
     <string name="mode_select_page_title">安装</string>
     <string name="mode_select_page_patch_and_install">修补并安装</string>
     <string name="mode_select_page_select_file">选择要修补的镜像</string>
+    <string name="restore_select_file">选择一个要还原的分区引导文件</string>
     <string name="mode_select_page_install_inactive_slot">安装到未激活槽位 (OTA 后)</string>
     <string name="mode_select_page_install_inactive_slot_warning">您的设备将在重启后**强制**启动到当前未激活的槽位！\n仅在 OTA 完成后使用此选项。\n继续吗？</string>
 
@@ -569,5 +573,9 @@
 
     <string name="settings_list_working_card_hide_mode">隐藏 Half/Full 小卡片</string>
     <string name="settings_list_working_card_hide_mode_summary">隐藏显示工作模式的小卡片</string>
+
+    <!-- Install Mode Select -->
+    <string name="kp_install_methods">KernelPatch 修补/安装</string>
+    <string name="restore_boot_methods">选择一个启动来恢复到引导分区</string>
 
 </resources>

@@ -189,6 +189,8 @@
     <string name="settings_show_disable_all_modules_summary">Hiển thị nút vô hiệu hóa tất cả module một cách nhanh chóng trên trang module</string>
     <string name="apm_install_confirm_title">Cài đặt module</string>
     <string name="apm_install_confirm_content">Bạn có chắc chắn muốn cài đặt %s không?</string>
+    <string name="settings_show_more_module_info">Hiển thị chi tiết module</string>
+    <string name="settings_show_more_module_info_summary">Hiển thị ID và kích thước module trong danh sách module</string>
     <string name="apm_disable_all_title">Vô hiệu hóa tất cả module</string>
     <string name="apm_disable_all_confirm">Bạn có chắc chắn muốn vô hiệu hóa tất cả module không? Thông thường chỉ làm điều này trước khi cập nhật OTA.</string>
 
@@ -213,6 +215,11 @@
     <string name="home_dialog_uninstall_ap_only_desc">Chỉ gỡ AndroidPatch và giữ lại trình quản lý.</string>
     <string name="home_dialog_uninstall_all">Gỡ hoàn toàn</string>
     <string name="home_dialog_uninstall_all_desc">Gỡ AndroidPatch và bắt đầu quy trình gỡ cài đặt hoàn toàn.</string>
+    
+    <!-- Install Mode Select -->
+    <string name="kp_install_methods">KernelPatch Vá/安装</string>
+    <string name="restore_boot_methods">Chọn một boot để khôi phục vào phân vùng boot</string>
+    <string name="restore_select_file">Chọn tệp boot phân vùng để khôi phục</string>
 
     <string name="kpm_control_dialog_title">Kiểm soát KPM</string>
     <string name="kpm_control_dialog_content">Vui lòng nhập tham số kiểm soát:</string>

@@ -187,6 +187,8 @@
     <string name="settings_show_disable_all_modules">显示"禁用全部圣光阵"按钮</string>
     <string name="settings_show_disable_all_modules_summary">在圣光阵页面显示一键禁用所有圣光阵的按钮</string>
     <string name="apm_install_confirm_title">安装圣光阵</string>
+    <string name="settings_show_more_module_info">显示圣光阵详细信息</string>
+    <string name="settings_show_more_module_info_summary">在圣光阵列表中显示圣光阵 ID 和大小</string>
     <string name="apm_install_confirm_content">确定要祝祷%s圣光阵吗？</string>
     <string name="apm_disable_all_title">禁用所有圣光阵</string>
     <string name="apm_disable_all_confirm">确定禁用全部圣光阵吗？一般来说在天界更新前才这么做。</string>
@@ -521,6 +523,12 @@
     <string name="settings_music_playback_control">播放控制</string>
     <string name="settings_music_looping">圣乐循环</string>
     <string name="settings_music_looping_summary">圣乐回响永恒不息</string>
+    
+    <!-- Install Mode Select -->
+    <string name="kp_install_methods">天使祝福修补/安装</string>
+    <string name="restore_boot_methods">选择一个启动镜像来恢复到引导分区</string>
+    <string name="restore_select_file">选择一个要还原的分区引导文件</string>
+    
     <!-- Theme Store Filter -->
     <string name="theme_store_filter_title">筛选圣光主题</string>
     <string name="theme_store_filter_author">创造者</string>

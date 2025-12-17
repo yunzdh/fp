@@ -187,6 +187,8 @@
     <string name="settings_apm_stay_on_page_summary">星之魔法阵执行完魔法后不自动返回</string>
     <string name="settings_show_disable_all_modules">显示"禁用全部魔法阵"按钮</string>
     <string name="settings_show_disable_all_modules_summary">在魔法阵页面显示一键禁用所有魔法阵的按钮</string>
+    <string name="settings_show_more_module_info">显示魔法阵详细信息</string>
+    <string name="settings_show_more_module_info_summary">在魔法阵列表中显示魔法阵 ID 和大小</string>
     <string name="apm_install_confirm_title">安装魔法阵</string>
     <string name="apm_install_confirm_content">确定要契约%s魔法阵吗？</string>
     <string name="apm_disable_all_title">禁用所有魔法阵</string>
@@ -212,7 +214,12 @@
     <string name="home_dialog_uninstall_ap_only">仅解除魔法契约</string>
     <string name="home_dialog_uninstall_ap_only_desc">仅移除魔法契约，保留部分魔力</string>
     <string name="home_dialog_uninstall_all">完全解除契约</string>
-    <string name="home_dialog_uninstall_all_desc">移除魔法契约并进入完整解除流程</string>
+    <string name="home_dialog_uninstall_all_desc">移除魔法契约并进入完整解除流程。</string>
+    
+    <!-- Install Mode Select -->
+    <string name="kp_install_methods">魔法契约修补/安装</string>
+    <string name="restore_boot_methods">选择一个启动镜像来恢复到引导分区</string>
+    <string name="restore_select_file">选择一个要还原的分区引导文件</string>
 
     <string name="kpm_control_dialog_title">操控心之结晶</string>
     <string name="kpm_control_dialog_content">请输入操控咒语：</string>

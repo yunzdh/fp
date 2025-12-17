@@ -17,13 +17,13 @@
     <string name="reboot_bootloader">ブートローダーへ再起動</string>
     <string name="reboot_download">ダウンロードモードへ再起動</string>
     <string name="reboot_edl">EDL モードへ再起動</string>
-    <string name="about">APatch について</string>
+    <string name="about">FolkPatch について</string>
     <string name="settings_app_language">言語</string>
     <string name="system_default">システムのデフォルト</string>
     <string name="settings_global_namespace_mode">グローバル名前空間モード</string>
     <string name="settings_global_namespace_mode_summary">すべての root セッションはグローバルマウント名前空間を使用します</string>
     <string name="settings_clear_super_key_dialog">本当に続行しますか？</string>
-    <string name="home_learn_apatch">APatch について</string>
+    <string name="home_learn_apatch"> について</string>
     <string name="home_click_to_learn_apatch">APatch の機能と使い方はこちら</string>
     <string name="settings_hide_apatch_card">「APatchについて」カードを非表示</string>
     <string name="settings_hide_apatch_card_summary">ホーム画面に「APatchについて」カードを表示するかどうかを制御します</string>
@@ -194,6 +194,8 @@
     <string name="settings_night_mode_follow_sys">システムテーマに従う</string>
     <string name="settings_night_mode_follow_sys_summary">システム設定に基づいて自動的にダークテーマを切り替えます</string>
     <string name="settings_night_theme_enabled">ダークテーマを有効化</string>
+    <string name="settings_show_more_module_info">モジュールの詳細情報を表示</string>
+    <string name="settings_show_more_module_info_summary">モジュールリストにモジュール ID とサイズを表示</string>
     <string name="settings_use_system_color_theme">ダイナミックテーマ</string>
     <string name="settings_use_system_color_theme_summary">システムが壁紙から生成したカラーテーマを使用します</string>
     <string name="settings_custom_color_theme">カラーテーマ</string>
@@ -526,4 +528,10 @@
     <string name="home_info_mode_full">完全</string>
     <string name="home_info_mode_half">不完全</string>
     <string name="home_zygisk_implement">Zygisk 実装</string>
+    
+    <!-- Install Mode Select -->
+    <string name="kp_install_methods">KernelPatch パッチング/インストール</string>
+    <string name="restore_boot_methods">ブートパーティションに復元するブートを選択</string>
+    <string name="restore_select_file">復元するパーティションブートファイルを選択</string>
+
 </resources>

@@ -87,6 +87,7 @@
     <string name="patch_mode_bootimg_patch">Mode: Patch</string>
     <string name="patch_mode_patch_and_install">Mode: Patch and install</string>
     <string name="patch_mode_install_to_next_slot">Mode: Install to inactive slot (After OTA)</string>
+    <string name="patch_mode_restore">Mode: Restore</string>
     <string name="patch_mode_uninstall_patch">Mode: Uninstall KPatch</string>
     <string name="patch_select_bootimg_btn">Select boot</string>
     <string name="patch_embed_kpm_btn">Embed KPM</string>
@@ -193,6 +194,8 @@
     <string name="enable_web_debugging_summary">Can be used to debug WebUI. Please enable only when needed.</string>
     <string name="settings_apm_install_confirm">Confirm before install</string>
     <string name="settings_apm_install_confirm_summary">Show a confirmation dialog before installing modules</string>
+    <string name="settings_show_more_module_info">Show module details</string>
+    <string name="settings_show_more_module_info_summary">Show module ID and size in the module list</string>
     <string name="settings_apm_stay_on_page">Stay on operation page</string>
     <string name="settings_apm_stay_on_page_summary">Do not automatically return after module action execution</string>
     <string name="settings_show_disable_all_modules">Show \'Disable All Modules\' button</string>
@@ -210,6 +213,7 @@
     <string name="mode_select_page_title">Install</string>
     <string name="mode_select_page_patch_and_install">Patch and install</string>
     <string name="mode_select_page_select_file">Select a boot image to patch</string>
+    <string name="restore_select_file">Select a partition boot file to restore</string>
     <string name="mode_select_page_install_inactive_slot">Install to inactive slot (After OTA)</string>
     <string name="mode_select_page_install_inactive_slot_warning">Your device will be **FORCED** to boot to the current inactive slot after a reboot!\nOnly use this option after OTA is done.\nContinue?</string>
 
@@ -576,4 +580,7 @@
     <string name="settings_list_working_card_hide_mode">Hide Half/Full Card</string>
     <string name="settings_list_working_card_hide_mode_summary">Hide the small card indicating working mode</string>
 
+    <!-- Install Mode Select -->
+    <string name="kp_install_methods">KernelPatch Patching/Installing</string>
+    <string name="restore_boot_methods">Select a boot to restore to boot partition</string>
 </resources>

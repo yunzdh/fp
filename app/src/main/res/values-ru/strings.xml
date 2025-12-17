@@ -193,6 +193,8 @@
     <string name="settings_apm_install_confirm_summary">Показывать диалог подтверждения перед установкой модулей</string>
     <string name="settings_show_disable_all_modules">Показать кнопку "Отключить все модули"</string>
     <string name="settings_show_disable_all_modules_summary">Отображать кнопку на странице модулей для отключения всех модулей одновременно</string>
+    <string name="settings_show_more_module_info">Показать подробности о модуле</string>
+    <string name="settings_show_more_module_info_summary">Показать ID и размер модуля в списке модулей</string>
     <string name="apm_install_confirm_title">Установить модуль</string>
     <string name="apm_install_confirm_content">Вы уверены, что хотите установить %s?</string>
     <string name="apm_disable_all_title">Отключить все модули</string>
@@ -221,6 +223,11 @@
     <string name="home_dialog_uninstall_ap_only_desc">Удалить только AndroidPatch, сохранив менеджер.</string>
     <string name="home_dialog_uninstall_all">Полностью удалить</string>
     <string name="home_dialog_uninstall_all_desc">Удалить AndroidPatch и запустить процесс полного удаления.</string>
+    
+    <!-- Install Mode Select -->
+    <string name="kp_install_methods">KernelPatch Патчинг/Установка</string>
+    <string name="restore_boot_methods">Выберите загрузочный образ для восстановления в загрузочный раздел</string>
+    <string name="restore_select_file">Выберите файл загрузочного раздела для восстановления</string>
 
     <string name="kpm_control_dialog_title">Управление KPM</string>
     <string name="kpm_control_dialog_content">Пожалуйста, введите параметры управления:</string>

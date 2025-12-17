@@ -187,6 +187,8 @@
     <string name="settings_show_disable_all_modules_summary">于仙符台，显一键禁诸仙符之仙钮</string>
     <string name="apm_install_confirm_title">凝符入体</string>
     <string name="apm_install_confirm_content">道友确欲凝炼%s仙符入体乎？</string>
+    <string name="settings_show_more_module_info">显仙符详录</string>
+    <string name="settings_show_more_module_info_summary">仙符录中显仙符号与大小</string>
     <string name="apm_disable_all_title">禁诸仙符</string>
     <string name="apm_disable_all_confirm">确欲尽禁诸仙符乎？大抵天道易筋前为之可避天劫。</string>
 
@@ -562,4 +564,9 @@
     <string name="home_info_mode_full">圆满</string>
     <string name="home_info_mode_half">残缺</string>
     <string name="home_zygisk_implement">Zygisk 仙人指路</string>
+    
+    <!-- Install Mode Select -->
+    <string name="kp_install_methods">仙道符箓修补/安装</string>
+    <string name="restore_boot_methods">选择一仙法镜像恢复至仙籍分区</string>
+    <string name="restore_select_file">选择一仙籍引导文件以还原</string>
 </resources>

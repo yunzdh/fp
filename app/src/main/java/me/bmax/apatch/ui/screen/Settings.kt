@@ -474,6 +474,7 @@ fun SettingScreen(navigator: DestinationsNavigator) {
         
         var biometricLogin by rememberSaveable { mutableStateOf(prefs.getBoolean("biometric_login", false)) }
         var enableWebDebugging by rememberSaveable { mutableStateOf(prefs.getBoolean("enable_web_debugging", false)) }
+        var showMoreModuleInfo by rememberSaveable { mutableStateOf(prefs.getBoolean("show_more_module_info", false)) }
         var installConfirm by rememberSaveable { mutableStateOf(prefs.getBoolean("apm_install_confirm_enabled", true)) }
         var showDisableAllModules by rememberSaveable { mutableStateOf(prefs.getBoolean("show_disable_all_modules", false)) }
         var stayOnPage by rememberSaveable { mutableStateOf(prefs.getBoolean("apm_action_stay_on_page", true)) }
@@ -1579,6 +1580,10 @@ fun SettingScreen(navigator: DestinationsNavigator) {
             val installConfirmSummary = stringResource(id = R.string.settings_apm_install_confirm_summary)
             val showInstallConfirm = aPatchReady && (matchBehavior || shouldShow(installConfirmTitle, installConfirmSummary))
 
+            val showMoreInfoTitle = stringResource(id = R.string.settings_show_more_module_info)
+            val showMoreInfoSummary = stringResource(id = R.string.settings_show_more_module_info_summary)
+            val showMoreInfo = aPatchReady && (matchBehavior || shouldShow(showMoreInfoTitle, showMoreInfoSummary))
+
             val disableModulesTitle = stringResource(id = R.string.settings_show_disable_all_modules)
             val disableModulesSummary = stringResource(id = R.string.settings_show_disable_all_modules_summary)
             val showDisableModules = aPatchReady && (matchBehavior || shouldShow(disableModulesTitle, disableModulesSummary))
@@ -1617,6 +1622,18 @@ fun SettingScreen(navigator: DestinationsNavigator) {
                         ) {
                             APApplication.sharedPreferences.edit { putBoolean("enable_web_debugging", it) }
                             enableWebDebugging = it
+                        }
+                    }
+
+                    if (showMoreInfo) {
+                        SwitchItem(
+                            icon = Icons.Filled.Info,
+                            title = showMoreInfoTitle,
+                            summary = showMoreInfoSummary,
+                            checked = showMoreModuleInfo
+                        ) {
+                            prefs.edit { putBoolean("show_more_module_info", it) }
+                            showMoreModuleInfo = it
                         }
                     }
                     
