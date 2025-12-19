@@ -158,11 +158,8 @@ fun BackgroundLayer(currentRoute: String? = null) {
 
     // Image Background Logic
     if (BackgroundConfig.isCustomBackgroundEnabled) {
-        // 在单壁纸模式下，线性、空间、渐隐动画不需要重生成壁纸，保持固定位置
-        val shouldAnimate = folkXEngineEnabled && (
-            BackgroundConfig.isMultiBackgroundEnabled ||
-            (folkXAnimationType != "linear" && folkXAnimationType != "spatial" && folkXAnimationType != "fade")
-        )
+        // 在单壁纸模式下，所有动画类型都不需要重生成壁纸，保持固定位置
+        val shouldAnimate = folkXEngineEnabled && BackgroundConfig.isMultiBackgroundEnabled
 
         if (shouldAnimate) {
             AnimatedContent(
