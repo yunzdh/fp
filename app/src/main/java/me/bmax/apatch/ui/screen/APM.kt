@@ -30,7 +30,9 @@ import androidx.compose.material.icons.filled.Archive
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.InstallMobile
 import androidx.compose.material.icons.filled.OpenInBrowser
+import androidx.compose.material.icons.filled.CloudDownload
 import androidx.compose.material.icons.filled.PlayArrow
+import com.ramcosta.composedestinations.generated.destinations.OnlineAPMModuleScreenDestination
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -79,6 +81,7 @@ import me.bmax.apatch.util.toggleModule
 import me.bmax.apatch.util.uninstallModule
 import top.yukonga.miuix.kmp.basic.Card
 import top.yukonga.miuix.kmp.basic.Icon
+import top.yukonga.miuix.kmp.basic.IconButton
 import top.yukonga.miuix.kmp.basic.Scaffold
 import top.yukonga.miuix.kmp.basic.Text
 import top.yukonga.miuix.kmp.theme.MiuixTheme
@@ -140,7 +143,15 @@ fun APModuleScreen(navigator: DestinationsNavigator) {
         topBar = {
             TopAppBar(
                 title = stringResource(R.string.apm),
-                scrollBehavior = scrollBehavior
+                scrollBehavior = scrollBehavior,
+                actions = {
+                    IconButton(onClick = { navigator.navigate(OnlineAPMModuleScreenDestination) }) {
+                        Icon(
+                            imageVector = Icons.Filled.CloudDownload,
+                            contentDescription = "Online Modules"
+                        )
+                    }
+                }
             )
         }, floatingActionButton = if (hideInstallButton) {
             { /* Empty */ }
