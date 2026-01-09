@@ -15,7 +15,7 @@ use const_format::concatcp;
 use is_executable::is_executable;
 use java_properties::PropertiesIter;
 use log::{info, warn};
-use mlua::{Function, Lua, Result as LuaResult, Table, Value};
+use mlua::{Function, Lua, Result as LuaResult, Table};
 use zip_extensions::zip_extract_file_to_memory;
 
 #[allow(clippy::wildcard_imports)]
