@@ -44,7 +44,8 @@ apksign {
 }
 
 android {
-    namespace = "me.bmax.apatch"
+    // 修改为新包名
+    namespace = "me.yun.folk"
     signingConfigs {
         create("release") {
             storeFile = file(keystoreProperties.getProperty("KEYSTORE_FILE") ?: "debug.keystore")
@@ -95,11 +96,12 @@ android {
     }
 
     defaultConfig {
-        applicationId = "me.yuki.folk"
+        // 修改为新包名
+        applicationId = "me.yun.folk"
         buildConfigField("String", "buildKPV", "\"$kernelPatchVersion\"")
         buildConfigField("boolean", "DEBUG_FAKE_ROOT", localProperties.getProperty("debug.fake_root", "false"))
 
-        base.archivesName = "FolkPatch_${managerVersionCode}_${managerVersionName}_on_${branchname}"
+        base.archivesName = "Folk_${managerVersionCode}_${managerVersionName}_on_${branchname}"
     }
 
     compileOptions {
@@ -322,21 +324,4 @@ dependencies {
 
     implementation(libs.sheet.compose.dialogs.core)
     implementation(libs.sheet.compose.dialogs.list)
-    implementation(libs.sheet.compose.dialogs.input)
-
-    implementation(libs.markdown)
-
-    implementation(libs.ini4j)
-
-    compileOnly(libs.cxx)
-}
-
-cmaker {
-    default {
-        arguments += "-DANDROID_STL=none"
-        arguments += "-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON"
-        abiFilters("arm64-v8a")
-        cppFlags += "-std=c++2b"
-        cFlags += "-std=c2x"
-    }
 }
