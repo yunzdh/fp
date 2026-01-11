@@ -1,29 +1,38 @@
-cmake_minimum_required(VERSION 3.28.0)
-project("apjni")
+cmake_minimum_required(VERSION 3.22)
+project(fp)
 
-find_program(CCACHE ccache)
+# 设置 C++ 标准
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-if (CCACHE)
-        set(CMAKE_CXX_COMPILER_LAUNCHER ${CCACHE})
-        set(CMAKE_C_COMPILER_LAUNCHER ${CCACHE})
-endif ()
+# 引入 Android NDK 工具链
+include(${CMAKE_ANDROID_NDK}/build/cmake/android.toolchain.cmake)
 
-find_package(cxx REQUIRED CONFIG)
-link_libraries(cxx::cxx)
+# 关键：不使用系统 find_package(cxx)，而是直接链接 Cargo 生成的 cxx 库
+# 假设你的 Rust 代码通过 Cargo 构建，会生成 libfp_rust.so 和 cxx 相关对象
+# 如果是纯 C++ 项目，直接引入 cxx 头文件路径
 
-macro(SET_OPTION option value)
-        set(${option} ${value} CACHE INTERNAL "" FORCE)
-endmacro()
+# 添加头文件路径（根据实际项目调整）
+include_directories(
+    ${CMAKE_SOURCE_DIR}/include
+    ${CMAKE_SOURCE_DIR}/../rust/target/include  # cxx 生成的头文件路径
+)
 
-set(CHERISH_POLLY_FLAGS "-mllvm -polly -mllvm -polly-run-dce -mllvm -polly-run-inliner -mllvm -polly-reschedule=1 -mllvm -polly-loopfusion-greedy=1 -mllvm -polly-postopts=1 -mllvm -polly-num-threads=0 -mllvm -polly-omp-backend=LLVM -mllvm -polly-scheduling=dynamic -mllvm -polly-scheduling-chunksize=1 -mllvm -polly-isl-arg=--no-schedule-serialize-sccs -mllvm -polly-ast-use-context -mllvm -polly-detect-keep-going -mllvm -polly-position=before-vectorizer -mllvm -polly-vectorizer=stripmine -mllvm -polly-detect-profitability-min-per-loop-insts=40 -mllvm -polly-invariant-load-hoisting")
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${CHERISH_POLLY_FLAGS} -ffunction-sections -fdata-sections -fvisibility=hidden -fvisibility-inlines-hidden -O3 -flto -Wno-vla-cxx-extension")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CHERISH_POLLY_FLAGS} -ffunction-sections -fdata-sections -fvisibility=hidden -fvisibility-inlines-hidden -fno-rtti -fno-exceptions -O3 -flto -Wno-vla-cxx-extension")
-set(CMAKE_CXX_STANDARD 23)
+# 添加源文件（根据实际项目调整）
+add_library(
+    fp
+    SHARED
+    native-lib.cpp  # 你的 C++ 源文件
+    # 其他源文件...
+)
 
-add_library(${PROJECT_NAME} SHARED apjni.cpp)
-add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-        COMMAND ${CMAKE_STRIP} --strip-all --remove-section=.note.gnu.build-id --remove-section=.note.android.ident $<TARGET_FILE:${PROJECT_NAME}>)
-
-target_link_libraries(${PROJECT_NAME} PRIVATE log)
-target_compile_options(${PROJECT_NAME} PRIVATE -flto)
-target_link_options(${PROJECT_NAME} PRIVATE "-Wl,--build-id=none" "-Wl,-icf=all,--lto-O3" "-Wl,-s,-x,--gc-sections" "-Wl,--no-undefined")
+# 链接 KernelPatch 相关库
+target_link_libraries(
+    fp
+    log
+    android
+    kpatch  # 已下载的 libkpatch.so
+    kptools # 已下载的 libkptools.so
+    # 如果有 Rust 生成的库，添加：
+    # ${CMAKE_SOURCE_DIR}/../rust/target/armv7-linux-androideabi/release/libfp_rust.a
+)
