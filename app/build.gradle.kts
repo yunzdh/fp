@@ -44,8 +44,7 @@ apksign {
 }
 
 android {
-    // 修改为新包名
-    namespace = "me.yun.folk"
+    namespace = "me.bmax.apatch"
     signingConfigs {
         create("release") {
             storeFile = file(keystoreProperties.getProperty("KEYSTORE_FILE") ?: "debug.keystore")
@@ -96,12 +95,29 @@ android {
     }
 
     defaultConfig {
-        // 修改为新包名
-        applicationId = "me.yun.folk"
+        applicationId = "me.yuki.folk"
         buildConfigField("String", "buildKPV", "\"$kernelPatchVersion\"")
         buildConfigField("boolean", "DEBUG_FAKE_ROOT", localProperties.getProperty("debug.fake_root", "false"))
 
-        base.archivesName = "Folk_${managerVersionCode}_${managerVersionName}_on_${branchname}"
+        base.archivesName = "FolkPatch_${managerVersionCode}_${managerVersionName}_on_${branchname}"
+        
+        // 【新增：修复 cxx 依赖核心配置】
+        minSdk = 26 // 适配 KernelPatch 最低要求，与 CI 一致
+        targetSdk = 34 // 适配最新 Android 版本
+        externalNativeBuild {
+            cmake {
+                cppFlags += "-std=c++17 -frtti -fexceptions"
+                arguments += listOf(
+                    "-DANDROID_STL=c++_shared", // 关键：解决 cxx 库链接问题
+                    "-DANDROID_ARM_NEON=TRUE",
+                    "-DCMAKE_FIND_ROOT_PATH=${project.projectDir}/.cxx" // 指向 CMake 依赖搜索路径
+                )
+                abiFilters += "arm64-v8a" // 与你 Cargo 构建架构一致
+            }
+        }
+        ndk {
+            abiFilters += "arm64-v8a"
+        }
     }
 
     compileOptions {
@@ -117,11 +133,13 @@ android {
             excludes += "**"
             merges += "META-INF/com/google/android/**"
         }
+        // 【新增：解决 so 重复打包冲突】
+        pickFirsts += "lib/**/*.so"
     }
 
     externalNativeBuild {
         cmake {
-            version = "3.28.0+"
+            version = "3.28.0+" // 保留你原本的 CMake 版本
             path("src/main/cpp/CMakeLists.txt")
         }
     }
@@ -248,6 +266,8 @@ tasks.register<Exec>("cargoBuild") {
     workingDir("${project.rootDir}/apd")
     environment("APATCH_VERSION_CODE", "${managerVersionCode}")
     environment("APATCH_VERSION_NAME", "${managerVersionCode}-Matsuzaka-yuki")
+    // 【新增：传递 NDK 路径给 Cargo，确保 cxx 编译正确】
+    environment("ANDROID_NDK_HOME", android.ndkDirectory)
 }
 
 tasks.register<Copy>("buildApd") {
@@ -261,6 +281,11 @@ tasks.configureEach {
     if (name == "mergeDebugJniLibFolders" || name == "mergeReleaseJniLibFolders") {
         dependsOn("buildApd")
     }
+}
+
+// 【新增：让 CMake 构建依赖 Cargo 构建（确保 libapd.so 已生成）】
+tasks.withType<com.android.build.gradle.tasks.ExternalNativeBuildTask> {
+    dependsOn("buildApd")
 }
 
 tasks.register<Exec>("cargoClean") {
@@ -324,4 +349,7 @@ dependencies {
 
     implementation(libs.sheet.compose.dialogs.core)
     implementation(libs.sheet.compose.dialogs.list)
+    
+    // 【新增：Soloader 用于安全加载 KernelPatch 相关 so 库】
+    implementation("com.facebook.soloader:soloader:0.10.5")
 }
